@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "config": "^3.1.0",
+    "eslint": "^6.0.1",
     "express": "^4.17.1",
     "express-validator": "^6.1.1",
     "mongoose": "^5.6.2",
@@ -12,8 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "backend": "nodemon server"
   },
   "repository": {
     "type": "git",
