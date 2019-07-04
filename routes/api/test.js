@@ -5,8 +5,8 @@ const router = express.Router();
 // Test
 
 router.get('/', (req, res) => {
-  const jsonresponse = { message: 'Hello from node backend!' };
-  res.json(jsonresponse);
+	const jsonresponse = {message: 'Hello from node backend!'};
+	res.json(jsonresponse);
 });
 
 module.exports = router;

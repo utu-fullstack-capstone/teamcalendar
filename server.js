@@ -8,7 +8,7 @@ const port = 5000;
 connectDB();
 
 // Enable JSON parsing
-app.use(express.json({ extended: false }));
+app.use(express.json({extended: false}));
 
 app.get('/', (req, res) => res.json('Frontend connected to backend'));
 
