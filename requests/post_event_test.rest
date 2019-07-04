@@ -1,0 +1,10 @@
+POST http://localhost:5000/api/events/
+Content-Type: application/json
+
+{
+  "title": "test event 2",
+  "description": "testing",
+  "location": "Turku",
+  "from": "Thu Jul 04 2019 16:16:50 GMT+0300",
+  "to": "Thu Jul 04 2019 17:16:50 GMT+0300"
+}

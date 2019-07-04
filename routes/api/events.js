@@ -37,7 +37,7 @@ router.post(
       });
 
       const event = await newEvent.save();
-      console.log('event saved!');
+      console.log('Event saved');
       res.json(event);
     } catch (err) {
       console.error(err.message);
@@ -71,6 +71,19 @@ router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
     res.json(events);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// DELETE event by id
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const events = await Event.findByIdAndRemove(req.params.id);
+    res.json({ msg: 'Event deleted' });
+    console.log('Event deleted');
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
