@@ -1,20 +1,26 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NavBar from './components/Navbar';
+import Feed from './components/Feed';
+import Calendar from './components/Calendar';
+import PIP from './components/PIP';
+import Login from './components/Login';
 
-function App() {
-	const [message, setData] = useState();
-
-	useEffect(() => {
-		async function fetchData() {
-			// You can await here
-			const result = await axios('/api/test/');
-			setData(result.data.message);
-			console.log(result.data.message);
-		}
-		fetchData();
-	}, []);
-
-	return <h1 className='plapla'>{message}</h1>;
-}
+const App = () => (
+  <Router>
+    <Fragment>
+      <NavBar />
+      <div>
+        <Route exact path='/' component={Feed} />
+        <Switch>
+          <Route exact path='/feed' component={Feed} />
+          <Route exact path='/calendar' component={Calendar} />
+          <Route exact path='/pip' component={PIP} />
+          <Route exact path='/login' component={Login} />
+        </Switch>
+      </div>
+    </Fragment>
+  </Router>
+);
 
 export default App;
