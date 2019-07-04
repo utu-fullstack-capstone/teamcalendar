@@ -65,7 +65,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// GET all events
+// GET api/events
 
 router.get('/', async (req, res) => {
   try {
@@ -77,7 +77,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// DELETE event by id
+// DELETE api/events/:id
 
 router.delete('/:id', async (req, res) => {
   try {
