@@ -1,7 +1,7 @@
-const mongoose require('mongoose')
+const mongoose = require('mongoose');
 
 const TeamSchema = new mongoose.Schema({
-  name: {
+  team: {
     type: String,
     required: true
   },
@@ -17,12 +17,15 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  homeBase: {
+    type: String
+  },
   players: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'players'
     }
   ]
-})
+});
 
-module.exports = Team = mongoose.model('team', TeamSchema)
+module.exports = Team = mongoose.model('team', TeamSchema);
