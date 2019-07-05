@@ -5,6 +5,18 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  city: {
+    type: String,
+    required: true
+  },
+  liga: {
+    type: String,
+    required: true
+  },
+  teamsClass: {
+    type: String,
+    required: true
+  },
   players: [
     {
       type: mongoose.Schema.Types.ObjectId,
