@@ -3,5 +3,7 @@ Content-Type: application/json
 
 {
     "team": "TPS",
-    "city": "Turku"
+    "city": "Turku",
+    "teamsClass": "b2",
+    "trainer": "Jussi Jodler"
 }

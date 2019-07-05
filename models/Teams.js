@@ -5,20 +5,24 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  teamsClass: {
+    type: String,
+    required: true
+  },
   city: {
     type: String,
     required: true
   },
   liga: {
-    type: String,
-    required: true
-  },
-  teamsClass: {
-    type: String,
-    required: true
-  },
-  homeBase: {
     type: String
+  },
+  trainer: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
   },
   players: [
     {
