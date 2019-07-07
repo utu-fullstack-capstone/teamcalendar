@@ -2,7 +2,7 @@ POST http://localhost:5000/api/teams/
 Content-Type: application/json
 
 {
-    "team": "TPS",
+    "team": "TPSJunior3",
     "city": "Turku",
     "teamsClass": "b2",
     "trainer": "Jussi Jodler"

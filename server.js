@@ -16,5 +16,6 @@ app.get('/', (req, res) => res.json('Frontend connected to backend'));
 app.use('/api/test', require('./routes/api/test'));
 app.use('/api/events', require('./routes/api/events'));
 app.use('/api/teams', require('./routes/api/teams.js'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

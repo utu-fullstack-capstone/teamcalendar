@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const { check, validationResult } = require('express-validator');
 
 const Team = require('../../models/Teams');
@@ -44,10 +47,30 @@ router.post(
         teamsClass,
         trainer
       });
+      /*
+      // encrypt password
+      const salt = await bcrypt.genSalt(10);
 
+      teamName.password = await bcrypt.hash(password, salt);
+*/
       await teamName.save();
 
-      res.send('Thank you for the input! Teams Route received your data');
+      // return jsonwebtoken
+      const payload = {
+        team: {
+          id: team.id
+        }
+      };
+
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 3600000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');

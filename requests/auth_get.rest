@@ -1,0 +1,6 @@
+// Team authentification
+
+
+
+GET http://localhost:5000/api/auth
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZWFtIjp7ImlkIjoiNWQyMWU1M2UzOGIwYmEwYWM4MWQxOWE5In0sImlhdCI6MTU2MjUwMjQ2MiwiZXhwIjoxNTY2MTAyNDYyfQ.aW9lDdgGdC_YtI-u5CZytgl0H1g-Hvd0bjuCmU4QFbk
