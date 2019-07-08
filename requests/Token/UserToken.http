@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 195
+ETag: W/"c3-f8Vr0Y+DFA9a6tek6ZA4stvPd/g"
+Date: Mon, 08 Jul 2019 16:05:45 GMT
+Connection: close
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQyMzY5ZDk2MGJmMzMwNjZmYmViNGIxIn0sImlhdCI6MTU2MjYwMTk0NSwiZXhwIjoxNTYyOTYxOTQ1fQ.t3r6hp9sbz_ggCuiJ61Ci9iyULSiny6jTDZxvdwAnMU"
+}

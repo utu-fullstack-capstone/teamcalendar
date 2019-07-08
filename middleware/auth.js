@@ -13,7 +13,7 @@ module.exports = function(req, res, next) {
   try {
     const decoded = jwt.verify(token, config.get('jwtSecret'));
 
-    req.teamName = decoded.team;
+    req.user = decoded.user;
     next();
   } catch (error) {
     res.status(401).json({ msg: 'No token, autorization denied' });
