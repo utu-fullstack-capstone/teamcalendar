@@ -13,6 +13,7 @@ app.use(express.json({ extended: false }));
 app.get('/', (req, res) => res.json('Frontend connected to backend'));
 
 // Define API Routes
+app.use('/api/user', require('./routes/api/user'));
 app.use('/api/test', require('./routes/api/test'));
 app.use('/api/events', require('./routes/api/events'));
 app.use('/api/teams', require('./routes/api/teams.js'));
