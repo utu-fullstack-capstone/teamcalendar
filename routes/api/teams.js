@@ -1,27 +1,48 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const config = require('config');
+const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
 const Team = require('../../models/Teams');
+const User = require('../../models/User');
 
-// post teams
+// @ Route  GET api/teams/user
+// @ Desc   GET current team
+// @ access Private
+
+router.get('/user', auth, async (req, res) => {
+  try {
+    const team = await Team.findOne({ user: req.user.id }).populate('user', [
+      'name',
+      'email'
+    ]);
+    if (!team) {
+      return res
+        .status(400)
+        .json({ msg: 'There is no team linked to the user' });
+    }
+    res.json(team);
+  } catch (error) {
+    console.error(err.message);
+    res.status(400).send('Server error');
+  }
+});
+
+// @ Route  POST api/teams
+// @ Desc   Create or update teams
+// @ access Private
 
 router.post(
   '/',
+  auth,
   [
-    check('team', 'Team name is required!')
+    check('team', 'Team is required')
       .not()
       .isEmpty(),
-    check('city', 'City is required!')
+    check('city', 'City is required')
       .not()
       .isEmpty(),
-    check('teamsClass', 'Class is required!')
-      .not()
-      .isEmpty(),
-    check('trainer', 'Trainer is required!')
+    check('coach', 'Choach is required')
       .not()
       .isEmpty()
   ],
@@ -30,61 +51,42 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { team, city, teamsClass, trainer } = req.body;
+    const { team, city, coach, teamClass, players } = req.body;
+
+    // Build team object
+    const teamFields = {};
+    teamFields.user = req.user.id;
+
+    if (team) teamFields.team = team;
+    if (city) teamFields.city = city;
+    if (coach) teamFields.coach = coach;
+    if (teamClass) teamFields.teamClass = teamClass;
+    if (players) teamFields.players = players;
 
     try {
-      // See if team existst
-      let teamName = await Team.findOne({ team });
-      if (teamName) {
-        res
-          .status(400)
-          .json({ errors: [{ message: 'Team already registered!' }] });
+      let team = await Team.findOne({ user: req.user.id });
+
+      if (team) {
+        // Update
+        team = await Team.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: teamFields },
+          { new: true }
+        );
+
+        return res.json(team);
       }
 
-      teamName = new Team({
-        team,
-        city,
-        teamsClass,
-        trainer
-      });
-      /*
-      // encrypt password
-      const salt = await bcrypt.genSalt(10);
+      // Create
 
-      teamName.password = await bcrypt.hash(password, salt);
-*/
-      await teamName.save();
-
-      // return jsonwebtoken
-      const payload = {
-        team: {
-          id: team.id
-        }
-      };
-
-      jwt.sign(
-        payload,
-        config.get('jwtSecret'),
-        { expiresIn: 3600000 },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
+      team = new Team(teamFields);
+      await team.save();
+      res.json(team);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
     }
   }
 );
-
-// @route   GET api/teams
-// @desc    teams route
-// @access  Public - no authentificaion!
-
-router.get('/', (req, res) => {
-  const jsonresponse = { message: 'teams route - backend' };
-  res.json(jsonresponse);
-});
 
 module.exports = router;

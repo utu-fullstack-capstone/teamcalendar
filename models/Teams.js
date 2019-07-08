@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
 const TeamSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+  },
   team: {
     type: String,
     required: true
   },
-  teamsClass: {
+  teamClass: {
     type: String,
     required: true
   },
@@ -13,10 +17,7 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  liga: {
-    type: String
-  },
-  trainer: {
+  coach: {
     type: String,
     required: true
   },
