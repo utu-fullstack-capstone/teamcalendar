@@ -1,0 +1,10 @@
+POST http://localhost:5000/api/teams
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQyMzY5ZDk2MGJmMzMwNjZmYmViNGIxIn0sImlhdCI6MTU2MjYxNzgyNSwiZXhwIjoxNTYyOTc3ODI1fQ.FS5w1pE93Py4gIasiZ80o_pTmbDNcZZ7ucOsGrC_Ev4
+
+{
+    "team": "TPS Naiset",
+    "teamClass": "b-jugend",
+    "city": "Turku",
+    "coach": "Timo Tomate"
+}
