@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 const mongoose = require('mongoose');
 
+=======
+>>>>>>> origin/dev
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -13,7 +16,20 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+<<<<<<< HEAD
   }
 });
 
 module.exports = User = mongoose.model('user', UserSchema);
+=======
+  },
+  admin: {
+    type: Boolean,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  }
+});
+>>>>>>> origin/dev
