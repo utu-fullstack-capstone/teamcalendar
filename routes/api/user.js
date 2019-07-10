@@ -8,12 +8,58 @@ const config = require('config');
 // User Model
 const User = require('../../models/User');
 
+router.get('/', auth, async (req, res) => {
+  if (!req.user.admin) {
+    return res.status(401).send('Access denied');
+  }
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+router.get('/user/:id', auth, async (req, res) => {
+  if (!req.user.admin) {
+    return res.status(401).send('Access denied');
+  }
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) return res.status(400).json({ msg: 'User not found' });
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind == 'ObjectId') {
+      return res.status(400).json({ msg: 'User not found' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
+router.delete('/:id', auth, async (req, res) => {
+  if (!req.user.admin) {
+    return res.status(401).send('Access denied');
+  }
+  try {
+    await User.findByIdAndRemove(req.params.id);
+    res.json({ msg: 'User deleted' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // @Route   POST api/user
-// @desc    Test Route
+// @desc    Registering user
 // @Access  Public
 
 router.post(
   '/',
+  auth,
   [
     check('name', 'Name is required')
       .not()
@@ -25,12 +71,15 @@ router.post(
     ).isLength({ min: 6 })
   ],
   async (req, res) => {
+    if (!req.user.admin) {
+      return res.status(401).send('Access denied');
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).send({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, admin } = req.body;
 
     try {
       // See if user exists
@@ -40,13 +89,14 @@ router.post(
           .status(400)
           .json({ errors: [{ msg: 'User already exists!' }] });
       }
-      // Get users gravatar
 
       user = new User({
         name,
         email,
-        password
+        password,
+        admin
       });
+
       // Encrypt password
 
       const salt = await bcrypt.genSalt(10);
