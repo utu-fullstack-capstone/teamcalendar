@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bycrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const config = require('config');
@@ -49,7 +49,7 @@ router.post(
 
       // compare passward
 
-      const isMatch = await bycrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
         return res.status(400).json({ errors: [{ msg: 'Invalid Input!' }] });
