@@ -8,6 +8,7 @@ const Event = require('../../models/Events.js');
 
 router.post(
   '/',
+  auth,
   [
     check('title', 'Title is required')
       .not()
@@ -71,6 +72,18 @@ router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
     res.json(events);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// DELETE event by ID
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const events = await Event.findByIdAndRemove(req.params.id);
+    res.json({ msg: 'Event deleted' });
+    console.log('Event deleted');
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
