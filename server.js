@@ -18,5 +18,6 @@ app.use('/api/events', require('./routes/api/events'));
 app.use('/api/teams', require('./routes/api/teams'));
 app.use('/api/user', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/twitter', require('./routes/api/twitter'));
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
