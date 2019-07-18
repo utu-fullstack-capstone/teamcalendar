@@ -6,43 +6,53 @@ const { check, validationResult } = require('express-validator');
 const Team = require('../../models/Teams');
 const User = require('../../models/User');
 
-// @ Route  GET api/teams/user
-// @ Desc   GET current team
-// @ access Private
-
-router.get('/user', auth, async (req, res) => {
+// @Route   GET api/teams
+// @desc    Get all teams
+// @Access  Public
+router.get('/', async (req, res) => {
   try {
-    const team = await Team.findOne({ user: req.user.id }).populate('user', [
-      'name',
-      'email'
-    ]);
+    const teams = await Team.find();
+    res.json(team);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @ Route  GET api/teams/:id
+// @ Desc   Get team by id
+// @ access Public
+router.get('/:id', async (req, res) => {
+  try {
+    const team = await Team.findById(req.params.id);
+
     if (!team) {
-      return res
-        .status(400)
-        .json({ msg: 'There is no team linked to the user' });
+      return res.status(404).json({ msg: 'Team not found' });
     }
     res.json(team);
-  } catch (error) {
+  } catch (err) {
     console.error(err.message);
-    res.status(400).send('Server error');
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Team not found' });
+    }
+    res.status(500).send('Server Error');
   }
 });
 
 // @ Route  POST api/teams
-// @ Desc   Create or update teams
-// @ access Private
-
+// @ Desc   Create teams
+// @ access Admin
 router.post(
   '/',
   auth,
   [
-    check('team', 'Team is required')
+    check('name', 'Name is required')
       .not()
       .isEmpty(),
     check('city', 'City is required')
       .not()
       .isEmpty(),
-    check('coach', 'Choach is required')
+    check('coach', 'Coach is required')
       .not()
       .isEmpty()
   ],
@@ -51,42 +61,54 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { team, city, coach, teamClass, players } = req.body;
-
-    // Build team object
-    const teamFields = {};
-    teamFields.user = req.user.id;
-
-    if (team) teamFields.team = team;
-    if (city) teamFields.city = city;
-    if (coach) teamFields.coach = coach;
-    if (teamClass) teamFields.teamClass = teamClass;
-    if (players) teamFields.players = players;
+    const { name, city, coach } = req.body;
 
     try {
-      let team = await Team.findOne({ user: req.user.id });
+      // check admin rights
+      const account = await User.findById(req.user.id).select('-password');
 
-      if (team) {
-        // Update
-        team = await Team.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: teamFields },
-          { new: true }
-        );
+      if (account.admin) {
+        let team = await Team.findOne({ name });
+        if (team) {
+          return res
+            .status(400)
+            .json({ errors: [{ msg: 'Team already exists!' }] });
+        }
 
-        return res.json(team);
+        team = new Team({
+          name,
+          city,
+          coach
+        });
+        await team.save();
+        res.json(team);
+        console.log('Team saved');
+      } else {
+        return res.status(401).json({ msg: 'Access denied' });
       }
-
-      // Create
-
-      team = new Team(teamFields);
-      await team.save();
-      res.json(team);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
     }
   }
 );
+
+// @Route   DELETE api/teams/:id
+// @desc    Delete user by id
+// @Access  Admin
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const account = await User.findById(req.user.id).select('-password');
+    if (account.admin) {
+      await Team.findByIdAndRemove(req.params.id);
+      res.json({ msg: 'Team deleted' });
+    } else {
+      return res.status(401).json({ msg: 'Access denied' });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;
