@@ -1,0 +1,4 @@
+
+
+GET http://localhost:5000/api/auth
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWQyMzY5ZDk2MGJmMzMwNjZmYmViNGIxIn0sImlhdCI6MTU2MjYwMTk0NSwiZXhwIjoxNTYyOTYxOTQ1fQ.t3r6hp9sbz_ggCuiJ61Ci9iyULSiny6jTDZxvdwAnMU

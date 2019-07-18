@@ -1,0 +1,10 @@
+
+
+POST http://localhost:5000/api/user
+Content-Type: application/json
+
+{
+    "name": "Helmhosrt1",
+    "email": "helmhorst1@diehorsts.eu",
+    "password": "Megahorst"
+}

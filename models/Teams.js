@@ -1,9 +1,29 @@
-const mongoose require('mongoose')
+const mongoose = require('mongoose');
 
 const TeamSchema = new mongoose.Schema({
-  name: {
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+  },
+  team: {
     type: String,
     required: true
+  },
+  teamClass: {
+    type: String,
+    required: true
+  },
+  city: {
+    type: String,
+    required: true
+  },
+  coach: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
   },
   players: [
     {
@@ -11,6 +31,6 @@ const TeamSchema = new mongoose.Schema({
       ref: 'players'
     }
   ]
-})
+});
 
-module.exports = Team = mongoose.model('team', TeamSchema)
+module.exports = Team = mongoose.model('team', TeamSchema);

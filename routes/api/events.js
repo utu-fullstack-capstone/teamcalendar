@@ -1,13 +1,16 @@
 const express = require('express');
 const config = require('config');
+const auth = require('../../middleware/auth');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const Event = require('../../models/Events.js');
 
-// POST event
-
+// @Route   POST api/event
+// @desc    Post new event
+// @Access  User
 router.post(
   '/',
+  auth,
   [
     check('title', 'Title is required')
       .not()
@@ -25,19 +28,29 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
+    const {
+      title,
+      description,
+      location,
+      from,
+      to,
+      category,
+      teams
+    } = req.body;
+
     try {
       const newEvent = new Event({
-        title: req.body.title,
-        description: req.body.description,
-        location: req.body.location,
-        from: req.body.from,
-        to: req.body.to,
-        category: req.body.category,
-        teams: req.body.teams
+        title,
+        description,
+        location,
+        from,
+        to,
+        category,
+        teams
       });
 
       const event = await newEvent.save();
-      console.log('event saved!');
+      console.log('Event saved!');
       res.json(event);
     } catch (err) {
       console.error(err.message);
@@ -46,8 +59,9 @@ router.post(
   }
 );
 
-// GET event by id
-
+// @Route   GET api/event/:id
+// @desc    Get event by id
+// @Access  Public
 router.get('/:id', async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
@@ -65,12 +79,43 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// GET all events
-
+// @Route   GET api/event
+// @desc    Get all events
+// @Access  Public
 router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
     res.json(events);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @Route   GET api/event/team_id/:team_id
+// @desc    Get all events of the team
+// @Access  Public
+router.get('/team_id/:id', async (req, res) => {
+  try {
+    const events = await Event.find({ teams: req.params.id });
+    if (!events) {
+      return res.status(404).json({ msg: 'Events not found' });
+    }
+    res.json(events);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @Route   DELETE api/event/:id
+// @desc    Delete event by id
+// @Access  User
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const events = await Event.findByIdAndRemove(req.params.id);
+    res.json({ msg: 'Event deleted' });
+    console.log('Event deleted');
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
