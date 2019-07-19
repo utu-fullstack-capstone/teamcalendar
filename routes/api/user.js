@@ -132,4 +132,36 @@ router.post(
   }
 );
 
+// @Route   PUT api/user
+// @desc    Update user account
+// @Access  Admin
+router.put(
+  '/:id',
+  auth,
+  [
+    check('name', 'Name is required')
+      .not()
+      .isEmpty(),
+    check('email', 'Provide a valid email').isEmail(),
+    check(
+      'password',
+      'Please enter a password with at least 6 characters.'
+    ).isLength({ min: 6 })
+  ],
+  async (req, res) => {
+    try {
+      const account = await User.findById(req.user.id).select('-password');
+      if (account.admin) {
+        await User.findByIdAndUpdate(req.params.id, { $set: req.body });
+        res.json({ msg: 'User account updated' });
+      } else {
+        return res.status(401).json({ msg: 'Access denied' });
+      }
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 module.exports = router;
