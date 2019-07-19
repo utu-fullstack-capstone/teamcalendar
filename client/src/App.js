@@ -8,6 +8,11 @@ import Login from './components/Login';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { setToken } from './actions/login';
+
+if (localStorage.token) {
+  setToken(localStorage.token);
+}
 
 const App = () => (
   <Router>
@@ -16,12 +21,12 @@ const App = () => (
       <Container>
         <Row>
           <Col>
-            <Route exact path='/' component={Feed} />
+            <Route exact path="/" component={Feed} />
             <Switch>
-              <Route exact path='/feed' component={Feed} />
-              <Route exact path='/calendar' component={Calendar} />
-              <Route exact path='/pip' component={PIP} />
-              <Route exact path='/login' component={Login} />
+              <Route exact path="/feed" component={Feed} />
+              <Route exact path="/calendar" component={Calendar} />
+              <Route exact path="/pip" component={PIP} />
+              <Route exact path="/login" component={Login} />
             </Switch>
           </Col>
         </Row>
