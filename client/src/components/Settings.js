@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardDeck';
+import CardColumns from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button';
 
 const Settings = () => {
@@ -17,7 +17,7 @@ const Settings = () => {
 
   return (
     <div className="cardContainer">
-      <CardDeck>
+      <CardColumns>
         {users.map(user => (
           <Card
             className="cardSettings"
@@ -35,7 +35,7 @@ const Settings = () => {
             </Card.Body>
           </Card>
         ))}
-      </CardDeck>
+      </CardColumns>
     </div>
   );
 };
