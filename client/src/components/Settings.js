@@ -19,11 +19,7 @@ const Settings = () => {
     <div className="cardContainer">
       <CardColumns>
         {users.map(user => (
-          <Card
-            className="cardSettings"
-            border="light"
-            style={{ width: '24rem' }}
-          >
+          <Card className="cardSettings" border="light">
             <Card.Header>{user.name}</Card.Header>
             <Card.Body>
               <Card.Title>{user.email}</Card.Title>
