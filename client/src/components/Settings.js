@@ -6,18 +6,21 @@ import Button from 'react-bootstrap/Button';
 
 const Settings = () => {
   const [users, setUsers] = useState([]);
+  const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
       const userList = await axios.get('http://localhost:5000/api/user');
       setUsers(userList.data);
+      console.log('rendered');
     };
     fetchUsers();
-  }, []);
+  }, [deleted]);
 
   const deleteProfile = id => async () => {
     await console.log(`http://localhost:5000/api/user/${id}`);
-    alert('User deleted!');
+    console.log('deleted', deleted);
+    setDeleted(!deleted);
   };
 
   return (
