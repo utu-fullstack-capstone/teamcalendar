@@ -9,17 +9,22 @@ const Settings = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const userList = await axios('http://localhost:5000/api/user');
+      const userList = await axios.get('http://localhost:5000/api/user');
       setUsers(userList.data);
     };
     fetchUsers();
   }, []);
 
+  const deleteProfile = id => async () => {
+    await console.log(`http://localhost:5000/api/user/${id}`);
+    alert('User deleted!');
+  };
+
   return (
     <div className="cardContainer">
       <CardColumns>
         {users.map(user => (
-          <Card className="cardSettings" border="light">
+          <Card className="cardSettings" border="light" key={user._id}>
             <Card.Header>{user.name}</Card.Header>
             <Card.Body>
               <Card.Title>{user.email}</Card.Title>
@@ -27,7 +32,10 @@ const Settings = () => {
                 Some quick example text to build on the card title and make up
                 the bulk of the card's content.
               </Card.Text>
-              <Button variant="primary">Edit Profile</Button>
+              <Button variant="primary" onClick={deleteProfile(user._id)}>
+                Delete
+              </Button>{' '}
+              <Button variant="primary">Edit</Button>
             </Card.Body>
           </Card>
         ))}
