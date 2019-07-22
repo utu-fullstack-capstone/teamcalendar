@@ -1,5 +1,10 @@
 import React, { useEffect, Fragment } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 import NavBar from './components/Navbar';
 import Feed from './components/Feed';
 import Calendar from './components/Calendar';
@@ -17,6 +22,26 @@ if (localStorage.token) {
   setToken(localStorage.token);
 }
 
+function PrivateRoute({ component: Settings, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        store.getState().loginReducer.isLogin ? (
+          <Settings {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
+
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
@@ -32,7 +57,7 @@ const App = () => {
               <Switch>
                 <Route exact path="/feed" component={Feed} />
                 <Route exact path="/calendar" component={Calendar} />
-                <Route exact path="/settings" component={Settings} />
+                <PrivateRoute exact path="/settings" component={Settings} />
                 <Route exact path="/login" component={Login} />
               </Switch>
             </Col>
