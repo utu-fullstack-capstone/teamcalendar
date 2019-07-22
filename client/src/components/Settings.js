@@ -6,21 +6,24 @@ import Button from 'react-bootstrap/Button';
 
 const Settings = () => {
   const [users, setUsers] = useState([]);
+  // Variable "deleted" changes its value every time when Delete-button is clicked
+  // and useEffect -hook is listening that change and renders the userlist again when a user is deleted.
   const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
       const userList = await axios.get('http://localhost:5000/api/user');
       setUsers(userList.data);
-      console.log('rendered');
     };
     fetchUsers();
   }, [deleted]);
 
   const deleteProfile = id => async () => {
-    await console.log(`http://localhost:5000/api/user/${id}`);
-    console.log('deleted', deleted);
-    setDeleted(!deleted);
+    let deleteClick = await confirm('Are you sure?'); //eslint-disable-line
+    if (deleteClick) {
+      await axios.delete(`http://localhost:5000/api/user/${id}`);
+      setDeleted(!deleted);
+    }
   };
 
   return (
