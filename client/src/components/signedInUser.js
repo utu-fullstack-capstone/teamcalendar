@@ -4,24 +4,17 @@ import Card from 'react-bootstrap/Card';
 // import CardColumns from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import store from '../store';
 
 const LogedUser = () => {
-  const [signedUser, setSignedUser] = useState({});
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const user = await axios.get('http://localhost:5000/api/auth');
-      setSignedUser(user);
-    };
-    fetchUserData();
-  }, []);
+  const user = store.getState().loginReducer.user;
 
   return (
     <div className='cardContainer'>
       <Card className='cardSettings signedUser' border='light'>
-        <Card.Header>{signedUser.name}</Card.Header>
+        <Card.Header>{user.name}</Card.Header>
         <Card.Body>
-          <Card.Title>{signedUser.email}</Card.Title>
+          <Card.Title>{user.email}</Card.Title>
           <Card.Text>some personal information</Card.Text>
           <Link to='/settings/users'>
             <Button className='buttonMargin' variant='primary'>

@@ -14,18 +14,18 @@ const UserProfile = () => {
         <Card.Body>
           <Card.Title>
             <form>
-              <lable>Name</lable>
+              <label>Name</label>
               <br />
               <input />
             </form>
           </Card.Title>
           <Card.Text>
             <form>
-              <lable>email</lable>
+              <label>email</label>
               <br />
               <input />
               <br />
-              <lable>password</lable>
+              <label>password</label>
               <br />
               <input />
             </form>
