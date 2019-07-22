@@ -1,3 +1,10 @@
 .cardSettings {
   margin-top: 1rem;
+  box-shadow: 0 0 0.3rem lightgray;
+}
+.signedUser {
+  margin-bottom: 2rem;
+}
+.buttonMargin {
+  margin-right: 0.5rem;
 }

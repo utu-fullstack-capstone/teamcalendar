@@ -4,9 +4,8 @@ import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button';
 import SignedIn from './logedUser';
-import EditUser from './editUser';
 
-const Settings = () => {
+const EditUser = () => {
   const [users, setUsers] = useState([]);
   // Variable "deleted" changes its value every time when Delete-button is clicked
   // and useEffect -hook is listening that change and renders the userlist again when a user is deleted.
@@ -31,7 +30,6 @@ const Settings = () => {
   return (
     <div className='cardContainer'>
       <SignedIn />
-      <EditUser />
       <CardColumns>
         {users.map(user => (
           <Card className='cardSettings' border='light' key={user._id}>
@@ -60,4 +58,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default EditUser;
