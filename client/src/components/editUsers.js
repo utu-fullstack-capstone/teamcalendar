@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-// import CardColumns from 'react-bootstrap/CardColumns';
+import CardColumns from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button';
 
-const LogedUser = () => {
+const EditUser = () => {
   const [users, setUsers] = useState([]);
   // Variable "deleted" changes its value every time when Delete-button is clicked
   // and useEffect -hook is listening that change and renders the userlist again when a user is deleted.
@@ -28,26 +28,32 @@ const LogedUser = () => {
 
   return (
     <div className='cardContainer'>
-      <Card className='cardSettings signedUser' border='light'>
-        <Card.Header>{user.name}</Card.Header>
-        <Card.Body>
-          <Card.Title>Signed in as {user.email}</Card.Title>
-          <Card.Text>
-            Some information for the addmin. 25 users last week. 12 new feeds.
-          </Card.Text>
-          <Button className='buttonMargin' variant='primary'>
-            Add new user
-          </Button>
-          <Button className='buttonMargin' variant='primary'>
-            Edit profiles
-          </Button>
-          <Button className='buttonMargin' variant='primary'>
-            Own profile
-          </Button>
-        </Card.Body>
-      </Card>
+      <CardColumns>
+        {users.map(user => (
+          <Card className='cardSettings' border='light' key={user._id}>
+            <Card.Header>{user.name}</Card.Header>
+            <Card.Body>
+              <Card.Title>{user.email}</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </Card.Text>
+              <Button
+                className='buttonMargin'
+                variant='primary'
+                onClick={deleteProfile(user._id)}
+              >
+                Delete
+              </Button>
+              <Button className='buttonMargin' variant='primary'>
+                Edit
+              </Button>
+            </Card.Body>
+          </Card>
+        ))}
+      </CardColumns>
     </div>
   );
 };
 
-export default LogedUser;
+export default EditUser;

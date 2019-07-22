@@ -8,3 +8,7 @@
 .buttonMargin {
   margin-right: 0.5rem;
 }
+
+.highlight {
+  box-shadow: 0 0 0.6rem orange;
+}
