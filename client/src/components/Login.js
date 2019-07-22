@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions/login';
+import store from '../store';
 
-const Login = ({ login, isLogin, isAdmin }) => {
+const Login = ({ login, loginReducer }) => {
   const [newEmail, setNewEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
@@ -14,31 +15,32 @@ const Login = ({ login, isLogin, isAdmin }) => {
     setNewPassword(event.target.value);
   };
 
-  const submitLogin = async event => {
+  const submitLogin = event => {
     event.preventDefault();
     login(newEmail, newPassword);
   };
 
-  return (
-    <div>
-      <form onSubmit={submitLogin}>
-        Email:
-        <br />
-        <input value={newEmail} onChange={handleEmailChange} />
-        <br />
-        Password:
-        <br />
-        <input value={newPassword} onChange={handlePasswordChange} />
-        <br />
-        <button type="submit">Login</button>
-      </form>
-    </div>
+  const loginText = store.getState().loginReducer.isLogin ? (
+    'Olet kirjautunut sisään.'
+  ) : (
+    <form onSubmit={submitLogin}>
+      Email:
+      <br />
+      <input value={newEmail} onChange={handleEmailChange} />
+      <br />
+      Password:
+      <br />
+      <input value={newPassword} onChange={handlePasswordChange} />
+      <br />
+      <button type="submit">Login</button>
+    </form>
   );
+
+  return <div>{!loginReducer.isLoading && loginText}</div>;
 };
 
 const mapStateToProps = state => ({
-  isLogin: state.isLogin,
-  isAdmin: state.isAdmin
+  loginReducer: state.loginReducer
 });
 
 export default connect(

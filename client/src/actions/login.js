@@ -1,81 +1,49 @@
-import axios from 'axios';
-import {
-  USER_LOADED,
-  ADMIN_LOADED,
-  AUTH_ERROR,
-  LOGIN_FAIL,
-  LOGIN_SUCCESS
-} from './types';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../actions/login';
+import store from '../store';
 
-// set token into axios headers
-export const setToken = token => {
-  if (token) {
-    axios.defaults.headers.common['x-auth-token'] = token;
-  } else {
-    delete axios.defaults.headers.common['x-auth-token'];
-  }
-};
+const Login = ({ login, loginReducer }) => {
+  const [newEmail, setNewEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
-// check authentication with token and load user data into state
-export const loadUser = () => async dispatch => {
-  if (localStorage.token) {
-    setToken(localStorage.token);
-  }
-  console.log('token', axios.defaults.headers.common['x-auth-token']);
-  try {
-    const res = await axios.get('http://localhost:5000/api/auth');
-    console.log('res.data', res);
-    if (res.data.admin) {
-      console.log(res.data.admin);
-      dispatch({
-        type: ADMIN_LOADED,
-        payload: res.data
-      });
-    } else {
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data
-      });
-    }
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR
-    });
-  }
-};
-
-// login user
-export const login = (email, password) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
+  const handleEmailChange = event => {
+    setNewEmail(event.target.value);
   };
-  const body = {
-    email,
-    password
-  };
-  try {
-    const res = await axios.post(
-      'http://localhost:5000/api/auth/',
-      body,
-      config
-    );
-    console.log('status', res.status);
-    console.log('res', res.data);
 
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: res.data
-    });
-    dispatch(loadUser());
-  } catch (err) {
-    if (err.response) {
-      const errors = err.response.data.errors;
-      errors.map(error => console.log(error.msg));
-    }
-    dispatch({
-      type: LOGIN_FAIL
-    });
-  }
+  const handlePasswordChange = event => {
+    setNewPassword(event.target.value);
+  };
+
+  const submitLogin = event => {
+    event.preventDefault();
+    login(newEmail, newPassword);
+  };
+
+  const loginText = store.getState().loginReducer.isLogin ? (
+    'Olet kirjautunut sisään.'
+  ) : (
+    <form onSubmit={submitLogin}>
+      Email:
+      <br />
+      <input value={newEmail} onChange={handleEmailChange} />
+      <br />
+      Password:
+      <br />
+      <input value={newPassword} onChange={handlePasswordChange} />
+      <br />
+      <button type="submit">Login</button>
+    </form>
+  );
+
+  return <div>{!loginReducer.isLoading && loginText}</div>;
 };
+
+const mapStateToProps = state => ({
+  loginReducer: state.loginReducer
+});
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);
