@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 // import CardColumns from 'react-bootstrap/CardColumns';
@@ -30,7 +30,7 @@ const UserProfile = () => {
       setStatus(false);
       setMessage(
         <Alert className="maTo" variant="primary">
-          Uusi käyttäjä on luotu.
+          Uusi käyttäjä on tallennettu.
         </Alert>
       );
 
