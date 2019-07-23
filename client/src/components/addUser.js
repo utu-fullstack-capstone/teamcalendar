@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
   // Prefent Default
-  const addUser = event => {
+  const addUser = async event => {
     event.preventDefault();
     const userObject = {
       name: newName,
@@ -28,7 +28,7 @@ const UserProfile = () => {
       }
     };
     try {
-      const res = axios.post(
+      const res = await axios.post(
         'http://localhost:5000/api/user',
         userObject,
         config
@@ -42,11 +42,23 @@ const UserProfile = () => {
           User added to the DB
         </Alert>
       );
+
       setTimeout(() => {
         setMessage('');
-      }, 5000);
+      }, 3000);
     } catch (error) {
-      console.log('error Message', error);
+      console.log('error Message', error.response.data.errors[0].msg);
+      const errorMsg = error.response.data.errors;
+      const msgList = errorMsg.map(element => <p>{element.msg}</p>);
+      setMessage(
+        <Alert className='maTo' variant='primary'>
+          {msgList}
+        </Alert>
+      );
+
+      setTimeout(() => {
+        setStatus(false);
+      }, 3000);
     }
   };
 
@@ -90,19 +102,18 @@ const UserProfile = () => {
               <br />
               <input value={newPassword} onChange={handlePasswordChange} />
               <br />
+              <label>Click Admin if the user need Admin status</label>
+              <br />
               <input
-                type='radio'
+                type='checkbox'
                 name='auth'
-                onChange={() => setStatus(true)}
+                onChange={() => {
+                  setStatus(true);
+                  console.log(newStatus);
+                }}
               />{' '}
               <label>Admin</label>
               <br />
-              <input
-                type='radio'
-                name='auth'
-                onChange={() => setStatus(false)}
-              />{' '}
-              <label>User</label>
               <br />
               <Button className='buttonMargin' variant='primary' type='submit'>
                 Save New User
