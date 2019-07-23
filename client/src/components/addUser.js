@@ -3,6 +3,7 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 // import CardColumns from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 import EditUsers from './editUsers';
 import { Link } from 'react-router-dom';
 
@@ -36,8 +37,16 @@ const UserProfile = () => {
       setNewEmail('');
       setNewPassword('');
       setStatus(false);
+      setMessage(
+        <Alert className='maTo' variant='primary'>
+          User added to the DB
+        </Alert>
+      );
+      setTimeout(() => {
+        setMessage('');
+      }, 5000);
     } catch (error) {
-      console.log(error);
+      console.log('error Message', error);
     }
   };
 
@@ -46,6 +55,7 @@ const UserProfile = () => {
   const [newEmail, setNewEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newStatus, setStatus] = useState(false);
+  const [newMessage, setMessage] = useState('');
 
   // Input Handler
   const handleNameChange = event => {
@@ -103,9 +113,8 @@ const UserProfile = () => {
                 </Button>
               </Link>
             </form>
-            Information about the user! <br />
-            Users Address <br />
-            Phone xxxxxxxxxx
+
+            {newMessage}
           </Card.Text>
         </Card.Body>
       </Card>
