@@ -7,10 +7,6 @@ import Alert from 'react-bootstrap/Alert';
 import EditUsers from './editUsers';
 import { Link } from 'react-router-dom';
 
-// const createUser = async () =>{
-
-// }
-
 const UserProfile = () => {
   // Prefent Default
   const addUser = async event => {
@@ -28,30 +24,26 @@ const UserProfile = () => {
       }
     };
     try {
-      const res = await axios.post(
-        'http://localhost:5000/api/user',
-        userObject,
-        config
-      );
       setNewName('');
       setNewEmail('');
       setNewPassword('');
       setStatus(false);
       setMessage(
-        <Alert className='maTo' variant='primary'>
-          User added to the DB
+        <Alert className="maTo" variant="primary">
+          Uusi käyttäjä on luotu.
         </Alert>
       );
 
       setTimeout(() => {
         setMessage('');
       }, 3000);
+      await axios.post('http://localhost:5000/api/user', userObject, config);
     } catch (error) {
       console.log('error Message', error.response.data.errors[0].msg);
       const errorMsg = error.response.data.errors;
       const msgList = errorMsg.map(element => <p>{element.msg}</p>);
       setMessage(
-        <Alert className='maTo' variant='primary'>
+        <Alert className="maTo" variant="primary">
           {msgList}
         </Alert>
       );
@@ -84,8 +76,8 @@ const UserProfile = () => {
   };
 
   return (
-    <div className='cardContainer'>
-      <Card className='cardSettings signedUser highlight' border='light'>
+    <div className="cardContainer">
+      <Card className="cardSettings signedUser highlight" border="light">
         <Card.Header>Add New User</Card.Header>
         <Card.Body>
           <Card.Title />
@@ -94,6 +86,7 @@ const UserProfile = () => {
               <label>Name</label>
               <br />
               <input value={newName} onChange={handleNameChange} />
+              <br />
               <label>email</label>
               <br />
               <input value={newEmail} onChange={handleEmailChange} />
@@ -105,8 +98,8 @@ const UserProfile = () => {
               <label>Click Admin if the user need Admin status</label>
               <br />
               <input
-                type='checkbox'
-                name='auth'
+                type="checkbox"
+                name="auth"
                 onChange={() => {
                   setStatus(true);
                   console.log(newStatus);
@@ -115,11 +108,11 @@ const UserProfile = () => {
               <label>Admin</label>
               <br />
               <br />
-              <Button className='buttonMargin' variant='primary' type='submit'>
+              <Button className="buttonMargin" variant="primary" type="submit">
                 Save New User
               </Button>
-              <Link to='/settings'>
-                <Button className='buttonMargin' variant='primary'>
+              <Link to="/settings">
+                <Button className="buttonMargin" variant="primary">
                   back to settings
                 </Button>
               </Link>
