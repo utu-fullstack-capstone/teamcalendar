@@ -131,10 +131,10 @@ const Settings = ({ user }) => {
 
   const userList = (
     <div>
-      <div className='cardContainer'>
+      <div className='maTo'>
         <Accordion defaultActiveKey='0'>
           {users.map(user => (
-            <Card key={user.id}>
+            <Card key={user.id} className='color'>
               <Accordion.Toggle
                 as={Card.Header}
                 eventKey={user._id}
@@ -145,7 +145,7 @@ const Settings = ({ user }) => {
                 </div>
                 <div>{user.email}</div>
               </Accordion.Toggle>
-              <Accordion.Collapse eventKey={user._id}>
+              <Accordion.Collapse eventKey={user._id} className='colorCollapse'>
                 <Card.Body className='startEnd'>
                   <div>{user.name}</div> More informaiton about the user!
                   Telefon, Adress, Liga, Groupe, Status
@@ -199,7 +199,7 @@ const Settings = ({ user }) => {
           {showOwnProfile ? 'Own Profile' : 'Hide Profile'}
         </Button>{' '}
       </div>
-      <div className='container'>
+      <div>
         {showAddUser ? '' : addUserView}
         {showUserList ? '' : userList}
         {showOwnProfile ? '' : ownProfile}
