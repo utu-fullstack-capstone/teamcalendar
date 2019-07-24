@@ -4,7 +4,8 @@ import {
   ADMIN_LOADED,
   AUTH_ERROR,
   LOGIN_FAIL,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  LOGOUT
 } from './types';
 
 // set token into axios headers
@@ -21,12 +22,9 @@ export const loadUser = () => async dispatch => {
   if (localStorage.token) {
     setToken(localStorage.token);
   }
-  console.log('token', axios.defaults.headers.common['x-auth-token']);
   try {
     const res = await axios.get('http://localhost:5000/api/auth');
-    console.log('res.data', res);
     if (res.data.admin) {
-      console.log(res.data.admin);
       dispatch({
         type: ADMIN_LOADED,
         payload: res.data
@@ -61,9 +59,7 @@ export const login = (email, password) => async dispatch => {
       body,
       config
     );
-    console.log('status', res.status);
-    console.log('res', res.data);
-
+    localStorage.setItem('token', res.data.token);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -78,4 +74,10 @@ export const login = (email, password) => async dispatch => {
       type: LOGIN_FAIL
     });
   }
+};
+
+export const logout = () => {
+  localStorage.removeItem('token');
+  console.log('logout');
+  return { type: LOGOUT };
 };

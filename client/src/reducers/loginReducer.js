@@ -4,13 +4,13 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   AUTH_ERROR,
-  LOG_OUT,
+  LOGOUT,
   ACCOUNT_DELETED
 } from '../actions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),
-  isLogin: null,
+  isLogin: false,
   isAdmin: false,
   isLoading: true,
   user: null
@@ -37,8 +37,6 @@ const loginReducer = (state = initialState, action) => {
         user: payload
       };
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', payload.token);
-      console.log('token', payload.token);
       return {
         ...state,
         ...payload,
@@ -47,15 +45,14 @@ const loginReducer = (state = initialState, action) => {
       };
     case LOGIN_FAIL:
     case AUTH_ERROR:
-    case LOG_OUT:
+    case LOGOUT:
     case ACCOUNT_DELETED:
-      localStorage.removeItem('token');
       return {
-        ...state,
         token: null,
         isLogin: false,
         isAdmin: false,
-        isLoading: false
+        isLoading: false,
+        user: null
       };
     default:
       return state;
