@@ -86,8 +86,8 @@ const Settings = ({ user }) => {
   };
 
   const addUserView = (
-    <div className="cardContainer">
-      <Card className="cardSettings signedUser highlight" border="light">
+    <div className='cardContainer'>
+      <Card className='cardSettings signedUser highlight' border='light'>
         <Card.Header>Add New User</Card.Header>
         <Card.Body>
           <Card.Title />
@@ -108,8 +108,8 @@ const Settings = ({ user }) => {
               <label>Click Admin if the user need Admin status</label>
               <br />
               <input
-                type="checkbox"
-                name="auth"
+                type='checkbox'
+                name='auth'
                 onChange={() => {
                   setStatus(true);
                   console.log(newStatus);
@@ -118,7 +118,7 @@ const Settings = ({ user }) => {
               <label>Admin</label>
               <br />
               <br />
-              <Button className="buttonMargin" variant="primary" type="submit">
+              <Button className='buttonMargin' variant='primary' type='submit'>
                 Save New User
               </Button>
             </form>
@@ -130,10 +130,10 @@ const Settings = ({ user }) => {
 
   const userList = (
     <div>
-      <div className="cardContainer">
+      <div className='cardContainer'>
         <CardColumns>
           {users.map(user => (
-            <Card className="cardSettings" border="light" key={user._id}>
+            <Card className='cardSettings' border='light' key={user._id}>
               <Card.Header>{user.name}</Card.Header>
               <Card.Body>
                 <Card.Title>{user.email}</Card.Title>
@@ -142,13 +142,13 @@ const Settings = ({ user }) => {
                   the bulk of the card's content.
                 </Card.Text>
                 <Button
-                  className="buttonMargin"
-                  variant="primary"
+                  className='buttonMargin'
+                  variant='primary'
                   onClick={deleteProfile(user._id)}
                 >
                   Delete
                 </Button>
-                <Button className="buttonMargin" variant="primary">
+                <Button className='buttonMargin' variant='primary'>
                   Edit
                 </Button>
               </Card.Body>
@@ -160,8 +160,8 @@ const Settings = ({ user }) => {
   );
 
   const ownProfile = (
-    <div className="cardContainer">
-      <Card className="cardSettings signedUser" border="light">
+    <div className='cardContainer'>
+      <Card className='cardSettings signedUser' border='light'>
         <Card.Header>{user.name}</Card.Header>
         <Card.Body>
           <Card.Title>{user.email}</Card.Title>
@@ -172,14 +172,25 @@ const Settings = ({ user }) => {
   );
 
   return (
-    <div>
+    <div className='container'>
       <div>
-        <Button onClick={() => setShowAddUser(!showAddUser)}>Add User</Button>{' '}
-        <Button onClick={() => setShowUserList(!showUserList)}>
-          User List
+        <Button
+          className='buttonMargin'
+          onClick={() => setShowAddUser(!showAddUser)}
+        >
+          {showAddUser ? 'Add User' : 'Hide Add User'}
         </Button>{' '}
-        <Button onClick={() => setShowOwnProfile(!showOwnProfile)}>
-          Own Profile
+        <Button
+          className='buttonMargin'
+          onClick={() => setShowUserList(!showUserList)}
+        >
+          {showUserList ? 'Show User' : 'Hide User'}
+        </Button>{' '}
+        <Button
+          className='buttonMargin'
+          onClick={() => setShowOwnProfile(!showOwnProfile)}
+        >
+          {showOwnProfile ? 'Own Profile' : 'Hide Profile'}
         </Button>{' '}
       </div>
       {showAddUser ? '' : addUserView}

@@ -2,6 +2,9 @@
   margin-top: 1rem;
   box-shadow: 0 0 0.3rem lightgray;
 }
+.container {
+  margin-top: 1rem;
+}
 .signedUser {
   margin-bottom: 2rem;
 }
