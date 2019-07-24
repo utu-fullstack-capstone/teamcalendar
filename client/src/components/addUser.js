@@ -8,8 +8,13 @@ import EditUsers from './editUsers';
 import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
+  // Input Control Elements
+  const [newName, setNewName] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [newStatus, setStatus] = useState(false);
   // Prefent Default
-  const addUser = async event => {
+  const addUser = event => {
     event.preventDefault();
     const userObject = {
       name: newName,
@@ -24,42 +29,17 @@ const UserProfile = () => {
       }
     };
     try {
+      axios.post('http://localhost:5000/api/user', userObject, config);
       setNewName('');
       setNewEmail('');
       setNewPassword('');
       setStatus(false);
-      setMessage(
-        <Alert className="maTo" variant="primary">
-          Uusi käyttäjä on tallennettu.
-        </Alert>
-      );
-
-      setTimeout(() => {
-        setMessage('');
-      }, 3000);
-      await axios.post('http://localhost:5000/api/user', userObject, config);
     } catch (error) {
-      console.log('error Message', error.response.data.errors[0].msg);
       const errorMsg = error.response.data.errors;
-      const msgList = errorMsg.map(element => <p>{element.msg}</p>);
-      setMessage(
-        <Alert className="maTo" variant="primary">
-          {msgList}
-        </Alert>
-      );
-
-      setTimeout(() => {
-        setStatus(false);
-      }, 3000);
+      const errorList = errorMsg.map(element => element.msg);
+      console.log(errorList);
     }
   };
-
-  // Input Control Elements
-  const [newName, setNewName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [newStatus, setStatus] = useState(false);
-  const [newMessage, setMessage] = useState('');
 
   // Input Handler
   const handleNameChange = event => {
@@ -117,8 +97,6 @@ const UserProfile = () => {
                 </Button>
               </Link>
             </form>
-
-            {newMessage}
           </Card.Text>
         </Card.Body>
       </Card>
