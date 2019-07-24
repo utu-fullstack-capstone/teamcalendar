@@ -18,3 +18,14 @@
 .maTo {
   margin-top: 1rem;
 }
+.startEnd {
+  display: flex;
+  justify-content: space-between;
+}
+
+.width10 {
+  width: 10rem;
+}
+.flex {
+  display: flex;
+}

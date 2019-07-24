@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-import CardColumns from 'react-bootstrap/CardColumns';
+// import CardColumns from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
+import Accordion from 'react-bootstrap/Accordion';
 
 const Settings = ({ user }) => {
   const [users, setUsers] = useState([]);
@@ -131,29 +132,35 @@ const Settings = ({ user }) => {
   const userList = (
     <div>
       <div className='cardContainer'>
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Edit</th>
-          </tr>
+        <Accordion defaultActiveKey='0'>
           {users.map(user => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>
-                {' '}
-                <Button
-                  className='buttonMargin'
-                  variant='primary'
-                  onClick={deleteProfile(user._id)}
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
+            <Card key={user.id}>
+              <Accordion.Toggle
+                as={Card.Header}
+                eventKey={user._id}
+                className='flex'
+              >
+                <div className='width10'>
+                  <strong>{user.name}</strong>
+                </div>
+                <div>{user.email}</div>
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey={user._id}>
+                <Card.Body className='startEnd'>
+                  <div>{user.name}</div> More informaiton about the user!
+                  Telefon, Adress, Liga, Groupe, Status
+                  <Button
+                    className='buttonMargin'
+                    variant='primary'
+                    onClick={deleteProfile(user._id)}
+                  >
+                    Delete
+                  </Button>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
           ))}
-        </table>
+        </Accordion>
       </div>
     </div>
   );
@@ -192,9 +199,11 @@ const Settings = ({ user }) => {
           {showOwnProfile ? 'Own Profile' : 'Hide Profile'}
         </Button>{' '}
       </div>
-      {showAddUser ? '' : addUserView}
-      {showUserList ? '' : userList}
-      {showOwnProfile ? '' : ownProfile}
+      <div className='container'>
+        {showAddUser ? '' : addUserView}
+        {showUserList ? '' : userList}
+        {showOwnProfile ? '' : ownProfile}
+      </div>
     </div>
   );
 };
