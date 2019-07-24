@@ -131,16 +131,18 @@ const Settings = ({ user }) => {
   const userList = (
     <div>
       <div className='cardContainer'>
-        <CardColumns>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Edit</th>
+          </tr>
           {users.map(user => (
-            <Card className='cardSettings' border='light' key={user._id}>
-              <Card.Header>{user.name}</Card.Header>
-              <Card.Body>
-                <Card.Title>{user.email}</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
+            <tr key={user.id}>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>
+                {' '}
                 <Button
                   className='buttonMargin'
                   variant='primary'
@@ -148,13 +150,10 @@ const Settings = ({ user }) => {
                 >
                   Delete
                 </Button>
-                <Button className='buttonMargin' variant='primary'>
-                  Edit
-                </Button>
-              </Card.Body>
-            </Card>
+              </td>
+            </tr>
           ))}
-        </CardColumns>
+        </table>
       </div>
     </div>
   );
