@@ -17,6 +17,9 @@ const Settings = ({ user }) => {
   const [showUserList, setShowUserList] = useState(true);
   const [showOwnProfile, setShowOwnProfile] = useState(false);
 
+  // Search Input
+  const [input, setInput] = useState('');
+
   useEffect(() => {
     const fetchUsers = async () => {
       const userList = await axios.get('http://localhost:5000/api/user');
@@ -64,6 +67,11 @@ const Settings = ({ user }) => {
       console.log(errorList);
     }
   };
+  // Search ChangeHandler
+  const filterName = event => {
+    console.log(event.target.value);
+    setInput(event.target.value);
+  };
 
   // Input Handler
   const handleNameChange = event => {
@@ -85,6 +93,11 @@ const Settings = ({ user }) => {
     console.log(userAdded);
     addUser();
   };
+
+  // Search Filter Function
+  const displayedUsers = users.filter(element => {
+    return element.name.toLowerCase().indexOf(input.toLowerCase()) !== -1;
+  });
 
   const addUserView = (
     <div className='cardContainer'>
@@ -129,17 +142,27 @@ const Settings = ({ user }) => {
     </div>
   );
 
+  // Displayed User Map Component
+  const toBeFiltered = () => {};
+
+  // User List
   const userList = (
     <div>
       <div className='maTo'>
+        <h4>Search for Users</h4>
+        <form>
+          <label>Lastname</label> <input value={input} onChange={filterName} />
+        </form>
+      </div>
+
+      <div className='maTo'>
         <Accordion defaultActiveKey='0'>
-          {users.map(user => (
+          {displayedUsers.map(user => (
             <Card key={user.id} className='color'>
               <Accordion.Toggle
                 as={Card.Header}
                 eventKey={user._id}
-                className='flex'
-              >
+                className='flex'>
                 <div className='width10'>
                   <strong>{user.name}</strong>
                 </div>
@@ -152,8 +175,7 @@ const Settings = ({ user }) => {
                   <Button
                     className='buttonMargin'
                     variant='primary'
-                    onClick={deleteProfile(user._id)}
-                  >
+                    onClick={deleteProfile(user._id)}>
                     Delete
                   </Button>
                 </Card.Body>
@@ -182,20 +204,17 @@ const Settings = ({ user }) => {
       <div>
         <Button
           className='buttonMargin'
-          onClick={() => setShowAddUser(!showAddUser)}
-        >
+          onClick={() => setShowAddUser(!showAddUser)}>
           {showAddUser ? 'Add User' : 'Hide Add User'}
         </Button>{' '}
         <Button
           className='buttonMargin'
-          onClick={() => setShowUserList(!showUserList)}
-        >
+          onClick={() => setShowUserList(!showUserList)}>
           {showUserList ? 'Show User' : 'Hide User'}
         </Button>{' '}
         <Button
           className='buttonMargin'
-          onClick={() => setShowOwnProfile(!showOwnProfile)}
-        >
+          onClick={() => setShowOwnProfile(!showOwnProfile)}>
           {showOwnProfile ? 'Own Profile' : 'Hide Profile'}
         </Button>{' '}
       </div>
