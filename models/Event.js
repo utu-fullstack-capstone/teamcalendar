@@ -28,7 +28,7 @@ const EventSchema = new mongoose.Schema({
   teams: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'teams'
+      ref: 'team'
     }
   ],
   created: {

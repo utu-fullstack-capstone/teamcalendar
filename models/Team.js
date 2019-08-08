@@ -13,6 +13,12 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  contact: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
+    }
+  ],
   created: {
     type: Date,
     default: Date.now
