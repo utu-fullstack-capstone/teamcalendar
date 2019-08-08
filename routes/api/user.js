@@ -61,7 +61,7 @@ router.get('/:id', auth, async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
   try {
     const account = await User.findById(req.user.id).select('-password');
-    if (account.admin) {
+    if (account.admin && req.user.id !== req.params.id) {
       await User.findByIdAndRemove(req.params.id);
       res.json({ msg: 'User deleted' });
     } else {
@@ -86,8 +86,8 @@ router.post(
     check('email', 'Provide a valid email').isEmail(),
     check(
       'password',
-      'Please enter a password with at least 6 characters.'
-    ).isLength({ min: 6 })
+      'Please enter a password with at least 8 characters.'
+    ).isLength({ min: 8 })
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -126,11 +126,11 @@ router.post(
         var aws = require('aws-sdk');
 
         // Provide the full path to your config.json file.
-        aws.config.loadFromPath('./../config/default.json');
+        aws.config.loadFromPath('./config/default.json');
 
         // Replace sender@example.com with your "From" address.
         // This address must be verified with Amazon SES.
-        const sender = 'Sender Name <capstonegofore@gmail.com>';
+        const sender = 'capstonegofore@gmail.com';
 
         // Replace recipient@example.com with a "To" address. If your account
         // is still in the sandbox, this address must be verified.
@@ -139,7 +139,8 @@ router.post(
         // Specify a configuration set. If you do not want to use a configuration
         // set, comment the following variable, and the
         // ConfigurationSetName : configuration_set argument below.
-        const configuration_set = 'ConfigSet';
+
+        // const configuration_set = 'ConfigSet';
 
         // The subject line for the email.
         const subject = 'Käyttäjätunnuksesi';
@@ -154,7 +155,7 @@ router.post(
         const body_html = `<html>
 <head></head>
 <body>
-  <h1>Amazon SES Test (SDK for JavaScript in Node.js)</h1>
+  <h1></h1>
   <p>This email was sent with
     <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
     <a href='https://aws.amazon.com/sdk-for-node-js/'>
@@ -189,8 +190,8 @@ router.post(
                 Charset: charset
               }
             }
-          },
-          ConfigurationSetName: configuration_set
+          }
+          // ConfigurationSetName: configuration_set
         };
 
         //Try to send the email.
@@ -205,7 +206,7 @@ router.post(
       } else {
         return res.status(401).json({ msg: 'Access denied' });
       }
-    } catch (error) {
+    } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
@@ -226,7 +227,7 @@ router.put(
     check(
       'password',
       'Please enter a password with at least 6 characters.'
-    ).isLength({ min: 6 })
+    ).isLength({ min: 8 })
   ],
   async (req, res) => {
     try {

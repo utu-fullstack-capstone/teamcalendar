@@ -27,8 +27,13 @@ const Settings = ({ user }) => {
   const deleteProfile = id => async () => {
     let deleteClick = await confirm('Are you sure?'); //eslint-disable-line
     if (deleteClick) {
-      await axios.delete(`http://localhost:5000/api/user/${id}`);
-      setDeleted(!deleted);
+      if (id === user._id) {
+        alert("You can't remove your own account.");
+        return;
+      } else {
+        await axios.delete(`http://localhost:5000/api/user/${id}`);
+        setDeleted(!deleted);
+      }
     }
   };
 
@@ -80,14 +85,14 @@ const Settings = ({ user }) => {
 
   const sendForm = event => {
     event.preventDefault();
-    setUserAdded(!userAdded);
+    setTimeout(setUserAdded(!userAdded), 500);
     console.log(userAdded);
     addUser();
   };
 
   const addUserView = (
-    <div className='cardContainer'>
-      <Card className='cardSettings signedUser highlight' border='light'>
+    <div className="cardContainer">
+      <Card className="cardSettings signedUser highlight" border="light">
         <Card.Header>Add New User</Card.Header>
         <Card.Body>
           <Card.Title />
@@ -108,8 +113,8 @@ const Settings = ({ user }) => {
               <label>Click Admin if the user need Admin status</label>
               <br />
               <input
-                type='checkbox'
-                name='auth'
+                type="checkbox"
+                name="auth"
                 onChange={() => {
                   setStatus(true);
                   console.log(newStatus);
@@ -118,7 +123,7 @@ const Settings = ({ user }) => {
               <label>Admin</label>
               <br />
               <br />
-              <Button className='buttonMargin' variant='primary' type='submit'>
+              <Button className="buttonMargin" variant="primary" type="submit">
                 Save New User
               </Button>
             </form>
@@ -130,7 +135,7 @@ const Settings = ({ user }) => {
 
   const userList = (
     <div>
-      <div className='cardContainer'>
+      <div className="cardContainer">
         <table>
           <tr>
             <th>Name</th>
@@ -144,8 +149,8 @@ const Settings = ({ user }) => {
               <td>
                 {' '}
                 <Button
-                  className='buttonMargin'
-                  variant='primary'
+                  className="buttonMargin"
+                  variant="primary"
                   onClick={deleteProfile(user._id)}
                 >
                   Delete
@@ -159,8 +164,8 @@ const Settings = ({ user }) => {
   );
 
   const ownProfile = (
-    <div className='cardContainer'>
-      <Card className='cardSettings signedUser' border='light'>
+    <div className="cardContainer">
+      <Card className="cardSettings signedUser" border="light">
         <Card.Header>{user.name}</Card.Header>
         <Card.Body>
           <Card.Title>{user.email}</Card.Title>
@@ -171,22 +176,22 @@ const Settings = ({ user }) => {
   );
 
   return (
-    <div className='container'>
+    <div className="container">
       <div>
         <Button
-          className='buttonMargin'
+          className="buttonMargin"
           onClick={() => setShowAddUser(!showAddUser)}
         >
           {showAddUser ? 'Add User' : 'Hide Add User'}
         </Button>{' '}
         <Button
-          className='buttonMargin'
+          className="buttonMargin"
           onClick={() => setShowUserList(!showUserList)}
         >
           {showUserList ? 'Show User' : 'Hide User'}
         </Button>{' '}
         <Button
-          className='buttonMargin'
+          className="buttonMargin"
           onClick={() => setShowOwnProfile(!showOwnProfile)}
         >
           {showOwnProfile ? 'Own Profile' : 'Hide Profile'}
