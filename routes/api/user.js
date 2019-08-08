@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
     // check admin rights
     const account = await User.findById(req.user.id).select('-password');
     if (account.admin) {
-      const users = await User.find();
+      const users = await User.find().select('-password');
       res.json(users);
     } else {
       return res.status(401).json({ msg: 'Access denied' });
@@ -37,7 +37,7 @@ router.get('/:id', auth, async (req, res) => {
     const account = await User.findById(req.user.id).select('-password');
 
     if (account.admin) {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.params.id).select('-password');
 
       if (!user) {
         return res.status(400).json({ msg: 'User not found' });
@@ -223,11 +223,7 @@ router.put(
     check('name', 'Name is required')
       .not()
       .isEmpty(),
-    check('email', 'Provide a valid email').isEmail(),
-    check(
-      'password',
-      'Please enter a password with at least 6 characters.'
-    ).isLength({ min: 8 })
+    check('email', 'Provide a valid email').isEmail()
   ],
   async (req, res) => {
     try {

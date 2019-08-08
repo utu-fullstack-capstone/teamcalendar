@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
-const Team = require('../../models/Teams');
+const Team = require('../../models/Team');
 const User = require('../../models/User');
 
 // @Route   GET api/teams
