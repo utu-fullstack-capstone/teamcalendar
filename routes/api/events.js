@@ -122,4 +122,32 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
+// @Route   PUT api/event/:id
+// @desc    Update event by id
+// @Access  User
+router.put(
+  '/:id',
+  auth,
+  [
+    check('title', 'Title is required')
+      .not()
+      .isEmpty(),
+    check('location', 'Location is required')
+      .not()
+      .isEmpty(),
+    check('from', 'Date is required')
+      .not()
+      .isEmpty()
+  ],
+  async (req, res) => {
+    try {
+      await Event.findByIdAndUpdate(req.params.id, { $set: req.body });
+      res.json({ msg: 'Event updated' });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 module.exports = router;

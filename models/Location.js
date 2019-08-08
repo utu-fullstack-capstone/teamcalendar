@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 
-const TeamSchema = new mongoose.Schema({
+const LocationSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
-  city: {
+  address: {
     type: String,
     required: true
   },
-  coach: {
-    type: String,
-    required: true
+  coordinates: {
+    type: [Number]
   },
   created: {
     type: Date,
@@ -19,4 +18,4 @@ const TeamSchema = new mongoose.Schema({
   }
 });
 
-module.exports = Team = mongoose.model('team', TeamSchema);
+module.exports = Location = mongoose.model('location', LocationSchema);

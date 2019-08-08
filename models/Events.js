@@ -21,14 +21,20 @@ const EventsSchema = new mongoose.Schema({
     required: true
   },
   category: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'category',
+    required: true
   },
   teams: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'teams'
     }
-  ]
+  ],
+  created: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = Profile = mongoose.model('events', EventsSchema);
