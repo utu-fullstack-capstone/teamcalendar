@@ -8,8 +8,8 @@ import store from '../store';
 
 const NavBar = ({ loginReducer }) => {
   const loginLink = (
-    <Link to="/login">
-      Login <i class="fas fa-user" />
+    <Link to='/login'>
+      Kirjaudu <i class='fas fa-user' />
     </Link>
   );
 
@@ -20,26 +20,16 @@ const NavBar = ({ loginReducer }) => {
   };
 
   const logoutLink = (
-    <a onClick={submitLogout} href="#!">
-      Logout <i class="fas fa-sign-out-alt" />
+    <a onClick={submitLogout} href='#!'>
+      Kirjaudu ulos <i class='fas fa-sign-out-alt' />
     </a>
   );
 
   return (
     <Fragment>
-      <Navbar bg="light">
-        <Navbar.Brand>Teamcalendar</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link>
-            <Link to="/calendar">Calendar</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to="/feed">Feed</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to="/settings">Settings</Link>
-          </Nav.Link>
-        </Nav>
+      <Navbar bg='dark' variant='dark'>
+        <Navbar.Brand>PIP</Navbar.Brand>
+        <Nav className='mr-auto' />
         <Nav>
           <Nav.Link>
             {!loginReducer.isLoading &&

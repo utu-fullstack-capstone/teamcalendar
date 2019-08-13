@@ -16,7 +16,7 @@ import Col from 'react-bootstrap/Col';
 import { setToken } from './actions/login';
 import { loadUser } from './actions/login.js';
 import store from './store';
-import './App.css';
+import './styles.scss';
 
 if (localStorage.token) {
   setToken(localStorage.token);
@@ -50,15 +50,15 @@ const App = () => {
     <Router>
       <Fragment>
         <NavBar />
-        <Container>
+        <Container className='bgimage'>
           <Row>
             <Col>
-              <Route exact path="/" component={Feed} />
+              <Route exact path='/' component={Feed} />
               <Switch>
-                <Route exact path="/feed" component={Feed} />
-                <Route exact path="/calendar" component={Calendar} />
-                <PrivateRoute exact path="/settings" component={Settings} />
-                <Route exact path="/login" component={Login} />
+                <Route exact path='/feed' component={Feed} />
+                <Route exact path='/calendar' component={Calendar} />
+                <PrivateRoute exact path='/settings' component={Settings} />
+                <Route exact path='/login' component={Login} />
               </Switch>
             </Col>
           </Row>
