@@ -1,11 +1,11 @@
 // https://github.com/twbs/bootstrap/blob/master/scss/_variables.scss
 
 // Custom variable overrides
-$body-bg: white;
-$body-color: #111;
+$body-bg: black;
+$body-color: lightgray;
 
 // Theme colors
-$primary: white;
+$primary: orange;
 //$secondary: $gray-600 !default;
 //$success: $green !default;
 //$info: $cyan !default;
@@ -26,6 +26,12 @@ body {
   background-image: url('images/floorball_background_web.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+// Button column
+.btn-col {
+  display: flex;
+  justify-content: flex-end;
 }
 
 // Bootstrap and its default variables
