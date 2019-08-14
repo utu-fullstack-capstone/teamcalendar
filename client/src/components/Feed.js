@@ -27,7 +27,7 @@ function Feed() {
       {isLoading && <Spinner animation='border' variant='primary' />}
       <CardColumns>
         {tweets.map(tweet => (
-          <Card key={tweet.id} className='bg-primary text-dark'>
+          <Card key={tweet.id} className='bg-primary text-dark mb-4'>
             <Card.Body>
               <Row>
                 <Col xs={1}>

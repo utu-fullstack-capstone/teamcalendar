@@ -20,6 +20,14 @@ $primary: rgb(255, 127, 0);
 $dark: #000 !default;
 
 // Events
+.eventtitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+.eventtext {
+  font-size: 14px;
+}
 .circle {
   width: 24px;
   height: 24px;
@@ -37,11 +45,14 @@ $dark: #000 !default;
   padding-left: 20px;
   padding-right: 5px;
 }
+
 // Card columns for feed
 $card-columns-count: 3;
 $card-bg: #fff;
 $card-border-width: 0;
 $card-border-radius: 5px;
+$card-spacer-x: 10px;
+$card-spacer-y: 10px;
 
 .posted {
   font-size: 12px;

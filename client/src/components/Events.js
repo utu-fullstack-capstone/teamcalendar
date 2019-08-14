@@ -29,29 +29,33 @@ function Events() {
       {isLoading && <Spinner animation='border' variant='primary' />}
       <CardColumns>
         {events.map(event => (
-          <Card key={event.id} className='text-dark'>
+          <Card key={event.id} className='text-dark mb-4'>
             <Card.Body>
               <Row>
                 <Col xs={1}>
                   <div className='circle'>B</div>
                 </Col>
                 <Col>
-                  <h5>{event.title}</h5>
-                  <p>{event.description}</p>
-                </Col>
-              </Row>
-              <Row>
-                <Col className='inforow'>
-                  <i
-                    className='far fa-calendar inforowicon'
-                    style={{ paddingLeft: 0 }}
-                  />
-                  Tänään
-                  {/* {moment(event.created_at).fromNow()} */}
-                  <i className='far fa-clock inforowicon' />
-                  9:30-11:30
-                  <i class='fas fa-map-marker-alt inforowicon' />
-                  {event.location}
+                  <Row>
+                    <Col>
+                      <h5 className='eventtitle'>{event.title}</h5>
+                      <p className='eventtext'>{event.description}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className='inforow'>
+                      <i
+                        className='far fa-calendar inforowicon'
+                        style={{ paddingLeft: 0 }}
+                      />
+                      Tänään
+                      {/* {moment(event.created_at).fromNow()} */}
+                      <i className='far fa-clock inforowicon' />
+                      9:30 - 11:30
+                      <i class='fas fa-map-marker-alt inforowicon' />
+                      {event.location}
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Card.Body>
