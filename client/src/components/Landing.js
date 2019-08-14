@@ -22,7 +22,7 @@ export default class Landing extends Component {
             </h4>
           </Col>
           <Col xs={6}>
-            <Dropdown className='float-right'>
+            <Dropdown className='float-right mb-4'>
               <Dropdown.Toggle variant='primary' id='dropdown-basic'>
                 Joukkue
               </Dropdown.Toggle>
