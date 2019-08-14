@@ -27,7 +27,7 @@ const NavBar = ({ loginReducer }) => {
 
   return (
     <Fragment>
-      <Navbar bg='dark' variant='dark'>
+      <Navbar bg='dark' variant='dark' className='fadednavbar'>
         <Navbar.Brand>PIP</Navbar.Brand>
         <Nav className='mr-auto' />
         <Nav>

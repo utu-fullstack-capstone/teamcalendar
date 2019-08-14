@@ -5,6 +5,7 @@ import store from '../store';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 const Login = ({ login, loginReducer }) => {
   const [newEmail, setNewEmail] = useState('');
@@ -26,36 +27,38 @@ const Login = ({ login, loginReducer }) => {
   const loginText = store.getState().loginReducer.isLogin ? (
     'Olet kirjautunut sisään.'
   ) : (
-    <Col xs md={6} lg={4}>
-      <h3>Kirjaudu</h3>
-      <p>Kirjautumalla pääset päivittämään kalenteritapahtumia</p>
-      <Form onSubmit={submitLogin}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Sähköposti</Form.Label>
-          <Form.Control
-            type="email"
-            value={newEmail}
-            onChange={handleEmailChange}
-            placeholder="Enter email"
-          />
-        </Form.Group>
+    <Row className='justify-content-center'>
+      <Col xs md={8} lg={6}>
+        <br />
+        <br />
+        <h3 style={{ color: 'white' }}>Kirjaudu</h3>
+        <h5>Kirjautumalla pääset päivittämään kalenteritapahtumia</h5>
+        <Form onSubmit={submitLogin}>
+          <Form.Group controlId='formBasicEmail'>
+            <Form.Control
+              type='email'
+              value={newEmail}
+              onChange={handleEmailChange}
+              placeholder='Sähköposti'
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Salasana</Form.Label>
-          <Form.Control
-            type="password"
-            value={newPassword}
-            onChange={handlePasswordChange}
-            placeholder="Password"
-          />
-        </Form.Group>
-        <Col className="btn-col">
-          <Button type="submit">
-            <strong>Kirjaudu</strong>
-          </Button>
-        </Col>
-      </Form>
-    </Col>
+          <Form.Group controlId='formBasicPassword'>
+            <Form.Control
+              type='password'
+              value={newPassword}
+              onChange={handlePasswordChange}
+              placeholder='Salasana'
+            />
+          </Form.Group>
+          <Col className='btn-col'>
+            <Button type='submit'>
+              <strong>Kirjaudu</strong>
+            </Button>
+          </Col>
+        </Form>
+      </Col>
+    </Row>
   );
 
   return <div>{!loginReducer.isLoading && loginText}</div>;
