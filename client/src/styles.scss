@@ -19,11 +19,30 @@ $primary: rgb(255, 127, 0);
 //$light: $gray-100 !default;
 $dark: #000 !default;
 
+// Events
+.circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  line-height: 24px;
+  text-align: center;
+  background: $primary;
+}
+.inforow {
+  font-size: 12px;
+  color: #6c6c6c;
+}
+.inforowicon {
+  padding-left: 20px;
+  padding-right: 5px;
+}
 // Card columns for feed
 $card-columns-count: 3;
 $card-bg: #fff;
 $card-border-width: 0;
 $card-border-radius: 5px;
+
 .posted {
   font-size: 12px;
   font-style: italic;
@@ -37,6 +56,7 @@ body {
     url('images/floorball_background_web.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 // Navbar fade
