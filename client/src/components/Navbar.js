@@ -9,7 +9,7 @@ import store from '../store';
 const NavBar = ({ loginReducer }) => {
   const loginLink = (
     <Link to='/login'>
-      Kirjaudu <i class='fas fa-user' />
+      Kirjaudu <i className='fas fa-user' />
     </Link>
   );
 
@@ -21,7 +21,7 @@ const NavBar = ({ loginReducer }) => {
 
   const logoutLink = (
     <a onClick={submitLogout} href='#!'>
-      Kirjaudu ulos <i class='fas fa-sign-out-alt' />
+      Kirjaudu ulos <i className='fas fa-sign-out-alt' />
     </a>
   );
 

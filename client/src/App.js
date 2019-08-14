@@ -9,6 +9,7 @@ import NavBar from './components/Navbar';
 import Feed from './components/Feed';
 import Calendar from './components/Calendar';
 import Login from './components/Login';
+import Landing from './components/Landing';
 import Settings from './components/Settings';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -22,12 +23,32 @@ if (localStorage.token) {
   setToken(localStorage.token);
 }
 
-function PrivateRoute({ component: Settings, ...rest }) {
+function PrivateRouteSettings({ component: Settings, ...rest }) {
   return (
     <Route
       {...rest}
       render={props =>
-        store.getState().loginReducer.isLogin ? (
+        localStorage.token ? (
+          <Settings {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
+
+function PrivateRouteLogin({ component: Login, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        localStorage.token ? (
           <Settings {...props} />
         ) : (
           <Redirect
@@ -53,11 +74,14 @@ const App = () => {
         <Container className='bgimage'>
           <Row>
             <Col>
-              <Route exact path='/' component={Feed} />
               <Switch>
-                <Route exact path='/feed' component={Feed} />
+                <Route exact path='/' component={Landing} />
                 <Route exact path='/calendar' component={Calendar} />
-                <PrivateRoute exact path='/settings' component={Settings} />
+                <PrivateRouteSettings
+                  exact
+                  path='/settings'
+                  component={Settings}
+                />
                 <Route exact path='/login' component={Login} />
               </Switch>
             </Col>
