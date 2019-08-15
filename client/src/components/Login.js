@@ -24,19 +24,23 @@ const Login = ({ login, loginReducer }) => {
     'Olet kirjautunut sisään.'
   ) : (
     <form onSubmit={submitLogin}>
-      Email:
-      <br />
+      <label>Email</label>
+
       <input value={newEmail} onChange={handleEmailChange} />
-      <br />
-      Password:
-      <br />
+
+      <label>Password</label>
+
       <input value={newPassword} onChange={handlePasswordChange} />
-      <br />
-      <button type="submit">Login</button>
+
+      <button type='submit'>Login</button>
     </form>
   );
 
-  return <div>{!loginReducer.isLoading && loginText}</div>;
+  return (
+    <div className='loginContainer'>
+      <div className='innerLogin'>{!loginReducer.isLoading && loginText}</div>
+    </div>
+  );
 };
 
 const mapStateToProps = state => ({

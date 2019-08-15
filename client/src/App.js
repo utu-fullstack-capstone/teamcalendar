@@ -49,20 +49,30 @@ const App = () => {
   return (
     <Router>
       <Fragment>
-        <NavBar />
-        <Container>
-          <Row>
-            <Col>
-              <Route exact path="/" component={Feed} />
-              <Switch>
-                <Route exact path="/feed" component={Feed} />
-                <Route exact path="/calendar" component={Calendar} />
-                <PrivateRoute exact path="/settings" component={Settings} />
-                <Route exact path="/login" component={Login} />
-              </Switch>
-            </Col>
-          </Row>
-        </Container>
+        <section className='landingPage'>
+          <div className='darkOverlay'>
+            <div className='innerContent'>
+              <NavBar />
+              <Container>
+                <Row>
+                  <Col>
+                    <Route exact path='/' component={Feed} />
+                    <Switch>
+                      <Route exact path='/feed' component={Feed} />
+                      <Route exact path='/calendar' component={Calendar} />
+                      <PrivateRoute
+                        exact
+                        path='/settings'
+                        component={Settings}
+                      />
+                      <Route exact path='/login' component={Login} />
+                    </Switch>
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+          </div>
+        </section>
       </Fragment>
     </Router>
   );
