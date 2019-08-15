@@ -12,14 +12,19 @@ function Feed() {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    let query = 'Salibandy';
-    const fetchTweets = async () => {
-      const twitterApi = await axios(`/api/twitter/?q=${query}`);
+    const fetchHashtags = async () => {
+      const hashtagsapi = await axios.get(`/api/hashtag`);
+      const list = hashtagsapi.data;
+      const tagarray = list.map(tag => tag.name);
+      fetchTweets(tagarray);
+    };
+    const fetchTweets = async tagarray => {
+      let query = tagarray.join('+');
+      const twitterApi = await axios.get(`/api/twitter/?q=${query}`);
       setTweets(twitterApi.data.statuses);
       setLoading(false);
     };
-
-    fetchTweets();
+    fetchHashtags();
   }, []);
 
   return (

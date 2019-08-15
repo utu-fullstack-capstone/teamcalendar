@@ -15,13 +15,12 @@ function Events() {
   useEffect(() => {
     const fetchEvents = async () => {
       let team_id = '5d2ed5e87d75e870f057c2f0';
-      const events = await axios(`/api/event/team_id/${team_id}`);
+      const events = await axios.get(`/api/event/team_id/${team_id}`);
       setEvents(events.data);
       setLoading(false);
     };
 
     fetchEvents();
-    console.log(events);
   }, []);
 
   return (

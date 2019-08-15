@@ -10,8 +10,7 @@ const TeamSchema = new mongoose.Schema({
     required: true
   },
   coach: {
-    type: String,
-    required: true
+    type: String
   },
   contact: [
     {
@@ -19,6 +18,10 @@ const TeamSchema = new mongoose.Schema({
       ref: 'user'
     }
   ],
+  color: {
+    type: String,
+    required: true
+  },
   created: {
     type: Date,
     default: Date.now

@@ -51,17 +51,17 @@ router.post(
       .isEmpty(),
     check('city', 'City is required')
       .not()
-      .isEmpty(),
-    check('coach', 'Coach is required')
-      .not()
       .isEmpty()
+    // check('coach', 'Coach is required')
+    //   .not()
+    //   .isEmpty()
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { name, city, coach } = req.body;
+    const { name, city, color, contact, coach } = req.body;
 
     try {
       // check admin rights
@@ -78,6 +78,8 @@ router.post(
         team = new Team({
           name,
           city,
+          color,
+          contact,
           coach
         });
         await team.save();
