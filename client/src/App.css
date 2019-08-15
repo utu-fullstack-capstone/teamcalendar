@@ -135,14 +135,17 @@
 }
 
 /* Search Field */
-.outerSearchField {
+.outerSearchField,
+.outerAddUser {
   margin: 3rem auto;
 }
-.outerSearchField h4 {
+.outerSearchField h4,
+.outerAddUser h4 {
   color: whitesmoke;
 }
 
-.searchField {
+.searchField,
+.addUser {
   border: 0.1rem solid rgb(0, 180, 255);
   color: whitesmoke;
   border-radius: 0.5rem;
@@ -161,7 +164,17 @@
   margin: 1rem 2rem;
   justify-content: flex-start;
 }
-.innerSearch input {
+.innerAddUser {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 1rem 2rem;
+}
+.innerAddUser > div {
+  background: orange;
+}
+.innerSearch input,
+.innerAddUser input {
   width: 14rem;
   margin-left: 1.5rem;
   border-radius: 0.4rem;
@@ -172,22 +185,23 @@
 }
 
 /* Users */
-.userContainer {
-  width: 100%;
-  color: whitesmoke;
-}
+
 .userContainer {
   border: 0.1rem solid rgb(0, 180, 255);
   background-color: rgba(245, 245, 245, 0.2);
   margin-bottom: 0.5rem;
   border-radius: 0.4rem;
+  width: 100%;
+  padding-bottom: 1rem;
+
+  color: whitesmoke;
 }
 .userContainer:hover {
   cursor: pointer;
 }
 .userContainerHead {
   width: 100%;
-  margin: 0.5rem 1rem;
+  margin: 1rem 2rem;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   grid-gap: 0.1rem;
@@ -211,6 +225,60 @@
 .card-header {
   background: none;
   border: none;
+  padding: 0;
+}
+
+.containerOne {
+  margin: 3rem auto;
+  width: 100%;
+  color: whitesmoke;
+}
+.containerTwo {
+  width: 100%;
+  border: 0.1rem solid rgb(0, 180, 255);
+  border-radius: 0.5rem;
+  background-color: rgba(245, 245, 245, 0.2);
+}
+.innerContainerOne {
+  width: 100%;
+}
+.innerContainerTwo {
+  margin-top: 2rem;
+
+  width: 100%;
+}
+.contentOne {
+  margin: 0 1rem;
+}
+.contentOne label {
+  display: block;
+}
+.contentTwo label {
+  margin-left: 1rem;
+  /* margin-top: 0.5rem; */
+}
+.contentTwo input {
+  display: inline;
+  margin-left: 2.5rem;
+}
+
+.contentOne input {
+  width: 16rem;
+  border-radius: 0.4rem;
+  border-color: rgb(0, 180, 255);
+  line-height: 1.5rem;
+  padding-left: 0.5rem;
+  color: dimgray;
+}
+
+.contentOne button {
+  line-height: 1.5rem;
+  margin-left: 2rem;
+  width: 7rem;
+  border-radius: 0.4rem;
+  background-color: rgb(0, 180, 255);
+  border: 0.1rem solid rgb(0, 180, 255);
+  color: whitesmoke;
 }
 
 @media screen and (max-width: 420px) {
@@ -241,5 +309,16 @@
   }
   .innerSearch input {
     width: 40%;
+  }
+  .innerContainerOne {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .innerContainerTwo {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
   }
 }

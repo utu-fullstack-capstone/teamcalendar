@@ -102,41 +102,50 @@ const Settings = ({ user }) => {
   });
 
   const addUserView = (
-    <div className='cardContainer'>
-      <Card className='cardSettings signedUser highlight' border='light'>
-        <Card.Header>Add New User</Card.Header>
-        <Card.Body>
+    <div>
+      <Card className='containerOne'>
+        <Card.Header>
+          <h4>Add New User</h4>
+        </Card.Header>
+        <Card.Body className='containerTwo'>
           <Card.Title />
           <Card.Text>
-            <form onSubmit={sendForm}>
-              <label>Name</label>
-              <br />
-              <input value={newName} onChange={handleNameChange} />
-              <br />
-              <label>email</label>
-              <br />
-              <input value={newEmail} onChange={handleEmailChange} />
-              <br />
-              <label>password</label>
-              <br />
-              <input value={newPassword} onChange={handlePasswordChange} />
-              <br />
-              <label>Click Admin if the user need Admin status</label>
-              <br />
-              <input
-                type='checkbox'
-                name='auth'
-                onChange={() => {
-                  setStatus(true);
-                  console.log(newStatus);
-                }}
-              />{' '}
-              <label>Admin</label>
-              <br />
-              <br />
-              <Button className='buttonMargin' variant='primary' type='submit'>
-                Save New User
-              </Button>
+            <form onSubmit={sendForm} className=''>
+              <div className='innerContainerOne'>
+                <div className='contentOne'>
+                  <label>Name</label>
+                  <input value={newName} onChange={handleNameChange} />
+                </div>
+                <div className='contentOne'>
+                  <label>Email</label>
+                  <input value={newEmail} onChange={handleEmailChange} />
+                </div>
+
+                <div className='contentOne'>
+                  <label>Password</label>
+                  <input value={newPassword} onChange={handlePasswordChange} />
+                </div>
+              </div>
+              <div className='innerContainerTwo'>
+                <div className='contentOne'>
+                  <label>Check if the user needs Admin rights</label>
+                </div>
+                <div className='contentTwo'>
+                  <input
+                    type='checkbox'
+                    name='auth'
+                    onChange={() => {
+                      setStatus(true);
+                      console.log(newStatus);
+                    }}
+                  />
+
+                  <label>Admin</label>
+                </div>
+                <div className='contentOne'>
+                  <button type='submit'>Save User</button>
+                </div>
+              </div>
             </form>
           </Card.Text>
         </Card.Body>
@@ -197,8 +206,9 @@ const Settings = ({ user }) => {
   );
 
   const ownProfile = (
-    <div className='cardContainer'>
-      <Card className='cardSettings signedUser' border='light'>
+    <div className='containerOne'>
+      <h4>Your Profile</h4>
+      <Card className='containerTwo signedUser'>
         <Card.Header>{user.name}</Card.Header>
         <Card.Body>
           <Card.Title>{user.email}</Card.Title>
