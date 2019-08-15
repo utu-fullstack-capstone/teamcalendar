@@ -35,9 +35,9 @@ const Hashtag = () => {
         <td>{hashtag.name} </td>
         <td>
           <div className="btn-col">
-            <a href={sendDelete(hashtag._id)}>
+            <div onClick={sendDelete(hashtag._id)}>
               <i class="far fa-trash-alt" style={{ cursor: 'pointer' }} />
-            </a>
+            </div>
           </div>
         </td>
       </tr>
