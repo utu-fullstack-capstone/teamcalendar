@@ -148,11 +148,14 @@ const Settings = ({ user }) => {
   // User List
   const userList = (
     <div>
-      <div className='maTo'>
-        <h4>Search for Users</h4>
-        <form>
-          <label>Lastname</label> <input value={input} onChange={filterName} />
-        </form>
+      <div className='searchField'>
+        <div className='innerSearch'>
+          <h4>Search for Users</h4>
+          <form>
+            <label>Lastname</label>{' '}
+            <input value={input} onChange={filterName} />
+          </form>
+        </div>
       </div>
 
       <div className='maTo'>
@@ -202,21 +205,21 @@ const Settings = ({ user }) => {
   return (
     <div className='container'>
       <div>
-        <Button
-          className='buttonMargin'
+        <button
+          className='buttonLeft'
           onClick={() => setShowAddUser(!showAddUser)}>
           {showAddUser ? 'Add User' : 'Hide Add User'}
-        </Button>{' '}
-        <Button
-          className='buttonMargin'
+        </button>{' '}
+        <button
+          className='buttonCenter'
           onClick={() => setShowUserList(!showUserList)}>
           {showUserList ? 'Show User' : 'Hide User'}
-        </Button>{' '}
-        <Button
-          className='buttonMargin'
+        </button>{' '}
+        <button
+          className='buttonRight'
           onClick={() => setShowOwnProfile(!showOwnProfile)}>
           {showOwnProfile ? 'Own Profile' : 'Hide Profile'}
-        </Button>{' '}
+        </button>{' '}
       </div>
       <div>
         {showAddUser ? '' : addUserView}
