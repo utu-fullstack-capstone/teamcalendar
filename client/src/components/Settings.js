@@ -17,6 +17,8 @@ const Settings = ({ user }) => {
   const [showUserList, setShowUserList] = useState(true);
   const [showOwnProfile, setShowOwnProfile] = useState(false);
 
+  const [showUserContent, setShowUserContent] = useState(true);
+
   // Search Input
   const [input, setInput] = useState('');
 
@@ -143,48 +145,52 @@ const Settings = ({ user }) => {
   );
 
   // Displayed User Map Component
-  const toBeFiltered = () => {};
+  const userContent = <div eventKey={user._id}>Test 123</div>;
 
   // User List
+
   const userList = (
     <div>
-      <div className='searchField'>
-        <div className='innerSearch'>
-          <h4>Search for Users</h4>
-          <form>
-            <label>Lastname</label>{' '}
+      <div className='outerSearchField'>
+        <h4 className='containerTitle'>Search for Users</h4>
+        <div className='searchField'>
+          <form className='innerSearch'>
+            <label>Lastname</label>
             <input value={input} onChange={filterName} />
           </form>
         </div>
       </div>
 
-      <div className='maTo'>
+      <div className=''>
         <Accordion defaultActiveKey='0'>
-          {displayedUsers.map(user => (
-            <Card key={user.id} className='color'>
-              <Accordion.Toggle
-                as={Card.Header}
-                eventKey={user._id}
-                className='flex'>
-                <div className='width10'>
-                  <strong>{user.name}</strong>
-                </div>
-                <div>{user.email}</div>
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey={user._id} className='colorCollapse'>
-                <Card.Body className='startEnd'>
-                  <div>{user.name}</div> More informaiton about the user!
-                  Telefon, Adress, Liga, Groupe, Status
-                  <Button
-                    className='buttonMargin'
-                    variant='primary'
-                    onClick={deleteProfile(user._id)}>
-                    Delete
-                  </Button>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          ))}
+          <Card>
+            {displayedUsers.map(user => (
+              <div key={user.id} className='userContainer'>
+                <Accordion.Toggle
+                  as={Card.Header}
+                  eventKey={user._id}
+                  className='userContainerHead'>
+                  <div>
+                    <strong>{user.name}</strong>
+                  </div>
+                  <div>{user.email}</div>
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey={user._id} className=''>
+                  <Card.Body className='userContainerCollaps'>
+                    <div>{user.name}</div> More informaiton about the user!
+                    Telefon, Adress, Liga, Groupe, Status
+                    <div />
+                    <button
+                      className='buttonUser'
+                      variant='primary'
+                      onClick={deleteProfile(user._id)}>
+                      Delete
+                    </button>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </div>
+            ))}
+          </Card>
         </Accordion>
       </div>
     </div>

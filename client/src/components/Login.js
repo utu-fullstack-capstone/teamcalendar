@@ -37,8 +37,11 @@ const Login = ({ login, loginReducer }) => {
   );
 
   return (
-    <div className='loginContainer'>
-      <div className='innerLogin'>{!loginReducer.isLoading && loginText}</div>
+    <div className='outerLoginContainer'>
+      <h4>Login</h4>
+      <div className='loginContainer'>
+        <div className='innerLogin'>{!loginReducer.isLoading && loginText}</div>
+      </div>
     </div>
   );
 };
