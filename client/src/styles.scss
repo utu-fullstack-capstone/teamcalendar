@@ -1,0 +1,85 @@
+// https://github.com/twbs/bootstrap/blob/master/scss/_variables.scss
+
+// Custom variable overrides
+$body-bg: black;
+$body-color: lightgray;
+
+// Typography
+$font-family-base: 'Roboto', sans-serif;
+$headings-font-family: 'Lato', sans-serif;
+//$headings-color: #fff;
+
+// Theme colors
+$primary: rgb(255, 127, 0);
+//$secondary: $gray-600 !default;
+//$success: $green !default;
+//$info: $cyan !default;
+//$warning: $yellow !default;
+//$danger: $red !default;
+//$light: $gray-100 !default;
+$dark: #000 !default;
+
+// Events
+.eventtitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+.eventtext {
+  font-size: 14px;
+}
+.circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  line-height: 24px;
+  text-align: center;
+  background: $primary;
+}
+.inforow {
+  font-size: 12px;
+  color: #6c6c6c;
+}
+.inforowicon {
+  padding-left: 20px;
+  padding-right: 5px;
+}
+
+// Card columns for feed
+$card-columns-count: 3;
+$card-bg: #fff;
+$card-border-width: 0;
+$card-border-radius: 5px;
+$card-spacer-x: 10px;
+$card-spacer-y: 10px;
+
+.posted {
+  font-size: 12px;
+  font-style: italic;
+}
+
+//Background image
+body {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 100)),
+    url('images/floorball_background_web.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+// Navbar fade
+.fadednavbar {
+  background: linear-gradient(rgba(0, 0, 0, 100), rgba(36, 36, 36, 100));
+}
+
+// Button column
+.btn-col {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// Bootstrap and its default variables
+@import 'node_modules/bootstrap/scss/bootstrap';

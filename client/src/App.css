@@ -1,0 +1,20 @@
+.cardSettings {
+  margin-top: 1rem;
+  box-shadow: 0 0 0.3rem lightgray;
+}
+.container {
+  margin-top: 1rem;
+}
+.signedUser {
+  margin-bottom: 2rem;
+}
+.buttonMargin {
+  margin-right: 0.5rem;
+}
+
+.highlight {
+  box-shadow: 0 0 0.6rem rgb(5, 255, 109);
+}
+.maTo {
+  margin-top: 1rem;
+}
