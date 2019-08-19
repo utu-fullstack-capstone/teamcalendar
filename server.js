@@ -25,5 +25,6 @@ app.use('/api/team', require('./routes/api/team'));
 app.use('/api/user', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/twitter', require('./routes/api/twitter'));
+app.use('/api/teamcategory', require('./routes/api/teamcategory'));
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
