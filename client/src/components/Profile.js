@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import store from '../store';
 
 const Profile = () => {
-  const user = store.getState().loginReducer.user;
-  console.log(JSON.stringify(user));
-  const { name } = user;
-  console.log('name', name);
-  return <h3>Profiili</h3>;
-};
+  const [profile, setProfile] = useState();
+  useEffect(() => {
+    const user = store.getState().loginReducer.user;
+    const fetchProfile = async () => {
+      const account = await axios.get(`/api/user/${user._id}`);
+      setProfile(account.data);
+    };
+    fetchProfile();
+  }, []);
 
-const mapStateToProps = state => ({
-  user: state.loginReducer.user
-});
+  return (
+    <>
+      <h3>Profiili</h3>
+      Nimi: {profile.name}
+    </>
+  );
+};
 
 export default Profile;
