@@ -3,6 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Hashtag from './Hashtag.js';
+import UserControl from './UserControl';
 import store from '../store';
 
 const Settings = () => {
@@ -12,7 +13,11 @@ const Settings = () => {
     hashtags: false
   });
 
-  const users = <div>Käyttäjät</div>;
+  const users = (
+    <div>
+      <UserControl />
+    </div>
+  );
   const teams = <div>Joukkueet</div>;
   const hashtags = (
     <div>
