@@ -39,6 +39,12 @@ router.post(
     } = req.body;
 
     try {
+      let event = await Event.findOne({ title });
+      if (event) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Team already exists!' }] });
+      }
       const newEvent = new Event({
         title,
         description,
@@ -49,9 +55,9 @@ router.post(
         teams
       });
 
-      const event = await newEvent.save();
+      await newEvent.save();
       console.log('Event saved!');
-      res.json(event);
+      res.json(newEvent);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
