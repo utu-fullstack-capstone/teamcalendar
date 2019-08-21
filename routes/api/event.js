@@ -43,7 +43,7 @@ router.post(
       if (event) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Team already exists!' }] });
+          .json({ errors: [{ msg: 'Event already exists!' }] });
       }
       const newEvent = new Event({
         title,
