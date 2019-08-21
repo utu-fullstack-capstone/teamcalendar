@@ -9,7 +9,7 @@ const Category = require('../../models/Category');
 // @Route   GET api/category
 // @desc    Get all categories
 // @Access  User
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const categories = await Category.find();
     res.json(categories);

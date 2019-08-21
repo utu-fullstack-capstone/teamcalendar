@@ -1,14 +1,31 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Events from './Events';
 import Calendar from './Calendar';
+import AdminCalendar from './AdminCalendar';
 import Feed from './Feed';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
-export default function Landing() {
+function Landing({ isLogin }) {
   // Switch between calendar and event cards
   const [view, setView] = useState('events');
+  // Teams for filter dropdown
+  const [teamOptions, setTeamOptions] = useState([
+    { name: 'Ladataan joukkueita...' }
+  ]);
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      let teams = await axios.get(`/api/team/`);
+      setTeamOptions(teams.data);
+    };
+
+    fetchTeams();
+  }, []);
+
   return (
     <Fragment>
       <h1 style={{ color: 'white' }} className='mt-5'>
@@ -34,7 +51,7 @@ export default function Landing() {
             <a href='#!' onClick={() => setView('events')}>
               <h4 className='mb-4'>
                 <i
-                  class='far fa-calendar-alt mr-2'
+                  className='far fa-calendar-alt mr-2'
                   style={{ color: 'white' }}
                 />{' '}
                 uusimmat
@@ -48,20 +65,30 @@ export default function Landing() {
               Joukkue
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href='#/action-1'>Action</Dropdown.Item>
-              <Dropdown.Item href='#/action-2'>Another action</Dropdown.Item>
-              <Dropdown.Item href='#/action-3'>Something else</Dropdown.Item>
+              {teamOptions &&
+                teamOptions.map(team => (
+                  <Dropdown.Item href='#!'>{team.name}</Dropdown.Item>
+                ))}
             </Dropdown.Menu>
           </Dropdown>
         </Col>
       </Row>
       {view === 'events' && <Events />}
-      {view === 'calendar' && <Calendar />}
+      {view === 'calendar' && (isLogin ? <AdminCalendar /> : <Calendar />)}
       <h4 className='mb-4'>
-        <i class='fas fa-hashtag mt-2 mr-2' style={{ color: 'white' }} />{' '}
+        <i className='fas fa-hashtag mt-2 mr-2' style={{ color: 'white' }} />{' '}
         salibandy
       </h4>
       <Feed />
     </Fragment>
   );
 }
+const mapStateToProps = state => {
+  return {
+    isLogin: state.loginReducer.isLogin
+  };
+};
+export default connect(
+  mapStateToProps,
+  null
+)(Landing);
