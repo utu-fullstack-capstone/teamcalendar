@@ -12,7 +12,7 @@ const Location = require('../../models/Location');
 // @Route   GET api/location
 // @desc    Get all locations
 // @Access  User
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const locations = await Location.find();
     res.json(locations);
@@ -65,15 +65,21 @@ router.post(
     const { name, address, coordinates } = req.body;
 
     try {
+      let location = await Location.findOne({ name });
+      if (location) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Location already exists!' }] });
+      }
       const newLocation = new Location({
         name,
         address,
         coordinates
       });
 
-      const location = await newLocation.save();
+      await newLocation.save();
       console.log('Location saved!');
-      res.json(location);
+      res.json(newLocation);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
