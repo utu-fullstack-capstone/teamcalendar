@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import Accordion from 'react-bootstrap/Accordion';
+import '../settings.css';
 
 const UserControl = ({ user }) => {
   const [navigation, setNavigation] = useState({
@@ -112,7 +113,7 @@ const UserControl = ({ user }) => {
   const addUserView = (
     <div>
       <br />
-      <Card bg="dark" className="containerOne">
+      <Card className="containerOne">
         <Card.Header>
           <h4>Lisää uusi käyttäjä</h4>
         </Card.Header>
@@ -179,7 +180,7 @@ const UserControl = ({ user }) => {
       </div>
 
       <div className="">
-        <Accordion defaultActiveKey="0" className="acc">
+        <Accordion defaultActiveKey="0">
           <Card>
             {displayedUsers.map(user => (
               <div key={user.id} className="userContainer">

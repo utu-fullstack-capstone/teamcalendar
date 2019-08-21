@@ -1,0 +1,272 @@
+/* Landing Page - Login */
+
+.darkOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(60, 60, 60, 0.85);
+}
+.outerLoginContainer {
+  width: 20rem;
+  margin: 4rem auto;
+}
+.outerLoginContainer h4 {
+  color: whitesmoke;
+}
+.loginContainer {
+  border: 0.1rem solid rgb(0, 180, 255);
+  border-radius: 0.5rem;
+  width: 100%;
+  background-color: rgba(245, 245, 245, 0.2);
+  margin-top: 1rem;
+  display: flex;
+}
+.innerLogin {
+  width: 100%;
+  margin: 1rem 2rem;
+  color: whitesmoke;
+}
+.innerLogin input {
+  width: 100%;
+  border-radius: 0.4rem;
+  border-color: rgb(0, 180, 255);
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+  color: dimgray;
+}
+.innerLogin label {
+  color: whitesmoke;
+  font-weight: 200;
+}
+.innerLogin button {
+  position: relative;
+  background-color: rgb(0, 180, 255);
+  color: whitesmoke;
+  line-height: 1.5rem;
+  width: 5rem;
+  border-radius: 0.4rem;
+  border-color: rgb(0, 180, 255);
+  box-shadow: 0 0 0.3rem rgb(20, 60, 80);
+}
+
+/* Admin Setting Page */
+/* Button bar */
+.buttonLeft,
+.buttonRight,
+.buttonCenter,
+.buttonUser {
+  position: relative;
+  background-color: rgb(0, 180, 255);
+  color: whitesmoke;
+  line-height: 1.5rem;
+  width: 7rem;
+  border-color: rgb(0, 180, 255);
+  box-shadow: 0 0 0.3rem rgb(20, 60, 80);
+}
+.buttonLeft {
+  border-radius: 0.4rem 0 0 0.4rem;
+}
+.buttonRight {
+  border-radius: 0 0.4rem 0.4rem 0;
+}
+.buttonUser {
+  height: 2rem;
+  border-radius: 0.4rem;
+}
+.buttonLeft:hover,
+.buttonRight:hover,
+.buttonCenter:hover {
+  box-shadow: 0 0 0.4rem rgb(0, 180, 255);
+}
+
+/* Search Field */
+.outerSearchField,
+.outerAddUser {
+  margin: 3rem auto;
+}
+.outerSearchField h4,
+.outerAddUser h4 {
+  color: whitesmoke;
+}
+
+.searchField,
+.addUser {
+  border: 0.1rem solid rgb(0, 180, 255);
+  color: whitesmoke;
+  border-radius: 0.5rem;
+  /* width: 20rem; */
+  background-color: rgba(245, 245, 245, 0.2);
+
+  /* display: flex; */
+}
+/* .searchField h4,
+.searchField label {
+  margin-left: 1rem;
+} */
+.innerSearch {
+  display: flex;
+  width: 100%;
+  margin: 1rem 2rem;
+  justify-content: flex-start;
+}
+.innerAddUser {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 1rem 2rem;
+}
+.innerAddUser > div {
+  background: orange;
+}
+.innerSearch input,
+.innerAddUser input {
+  width: 14rem;
+  margin-left: 1.5rem;
+  border-radius: 0.4rem;
+  border-color: rgb(0, 180, 255);
+  line-height: 1.5rem;
+  padding-left: 0.5rem;
+  color: dimgray;
+}
+
+/* Users */
+
+.userContainer {
+  border: 0.1rem solid rgb(0, 180, 255);
+  background-color: rgba(245, 245, 245, 0.2);
+  margin-bottom: 0.5rem;
+  border-radius: 0.4rem;
+  width: 100%;
+  padding-bottom: 1rem;
+
+  color: whitesmoke;
+}
+.userContainer:hover {
+  cursor: pointer;
+}
+.userContainerHead {
+  width: 100%;
+  margin: 1rem 2rem;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-gap: 0.1rem;
+}
+.userContainerHead :first-child {
+  grid-column: 1 / 2;
+}
+
+.userContainerCollaps {
+  width: 100%;
+  margin: 0.5rem 1rem;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-gap: 0.1rem;
+}
+.userContainerCollaps :first-child {
+  grid-column: 1 / 1;
+}
+
+.card,
+.card-header {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.containerOne {
+  margin: 3rem auto;
+  width: 100%;
+  color: whitesmoke;
+}
+.containerTwo {
+  width: 100%;
+  border: 0.1rem solid rgb(0, 180, 255);
+  border-radius: 0.5rem;
+  background-color: rgba(245, 245, 245, 0.2);
+}
+.innerContainerOne {
+  width: 100%;
+}
+.innerContainerTwo {
+  margin-top: 2rem;
+
+  width: 100%;
+}
+.contentOne {
+  margin: 0 1rem;
+}
+.contentOne label {
+  display: block;
+}
+.contentTwo label {
+  margin-left: 1rem;
+  /* margin-top: 0.5rem; */
+}
+.contentTwo input {
+  display: inline;
+  margin-left: 2.5rem;
+}
+
+.contentOne input {
+  width: 16rem;
+  border-radius: 0.4rem;
+  border-color: rgb(0, 180, 255);
+  line-height: 1.5rem;
+  padding-left: 0.5rem;
+  color: dimgray;
+}
+
+.contentOne button {
+  line-height: 1.5rem;
+  margin-left: 2rem;
+  width: 7rem;
+  border-radius: 0.4rem;
+  background-color: rgb(0, 180, 255);
+  border: 0.1rem solid rgb(0, 180, 255);
+  color: whitesmoke;
+}
+
+@media screen and (max-width: 420px) {
+  .buttonLeft,
+  .buttonRight,
+  .buttonCenter {
+    width: 6.8rem;
+    font-size: 0.8rem;
+  }
+  .innerSearch input {
+    width: 10rem;
+  }
+  .userContainerHead {
+    grid-template-columns: 50% 50%;
+  }
+  .userContainerCollaps {
+    grid-template-columns: 50% 50%;
+  }
+  .buttonUser {
+    margin-top: 1rem;
+  }
+}
+@media screen and (min-width: 770px) {
+  .buttonLeft,
+  .buttonRight,
+  .buttonCenter {
+    width: 10rem;
+  }
+  .innerSearch input {
+    width: 40%;
+  }
+  .innerContainerOne {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .innerContainerTwo {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
