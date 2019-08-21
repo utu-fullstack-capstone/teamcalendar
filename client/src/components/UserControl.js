@@ -7,16 +7,26 @@ import { connect } from 'react-redux';
 import Accordion from 'react-bootstrap/Accordion';
 
 const UserControl = ({ user }) => {
+  const [navigation, setNavigation] = useState({
+    showUsers: true,
+    addUser: false
+  });
+
+  const toggleShowUsers = () =>
+    setNavigation({
+      showUsers: true,
+      addUser: false
+    });
+  const toggleAddUser = () =>
+    setNavigation({
+      showUsers: false,
+      addUser: true
+    });
+
   const [users, setUsers] = useState([]);
-  // Variable "deleted" changes its value every time when Delete-button is clicked
+  // Variable "clicked" changes its value every time when Delete-button is clicked
   // and useEffect -hook is listening that change and renders the userlist again when a user is deleted.
-  const [deleted, setDeleted] = useState(false);
-  const [userAdded, setUserAdded] = useState(false);
-
-  const [showAddUser, setShowAddUser] = useState(true);
-  const [showUserList, setShowUserList] = useState(true);
-
-  const [showUserContent, setShowUserContent] = useState(true);
+  const [clicked, setClicked] = useState(false);
 
   // Search Input
   const [input, setInput] = useState('');
@@ -27,13 +37,13 @@ const UserControl = ({ user }) => {
       setUsers(userList.data);
     };
     fetchUsers();
-  }, [deleted, userAdded]);
+  }, []);
 
   const deleteProfile = id => async () => {
     let deleteClick = await confirm('Are you sure?'); //eslint-disable-line
     if (deleteClick) {
       await axios.delete(`http://localhost:5000/api/user/${id}`);
-      setDeleted(!deleted);
+      setClicked(!clicked);
     }
   };
 
@@ -90,8 +100,7 @@ const UserControl = ({ user }) => {
 
   const sendForm = event => {
     event.preventDefault();
-    setUserAdded(!userAdded);
-    console.log(userAdded);
+    setClicked(!clicked);
     addUser();
   };
 
@@ -102,9 +111,10 @@ const UserControl = ({ user }) => {
 
   const addUserView = (
     <div>
-      <Card className="containerOne">
+      <br />
+      <Card bg="dark" className="containerOne">
         <Card.Header>
-          <h4>Add New User</h4>
+          <h4>Lisää uusi käyttäjä</h4>
         </Card.Header>
         <Card.Body className="containerTwo">
           <Card.Title />
@@ -112,23 +122,23 @@ const UserControl = ({ user }) => {
             <form onSubmit={sendForm} className="">
               <div className="innerContainerOne">
                 <div className="contentOne">
-                  <label>Name</label>
+                  <label>Nimi:</label>
+                  <br />
                   <input value={newName} onChange={handleNameChange} />
                 </div>
                 <div className="contentOne">
-                  <label>Email</label>
+                  <label>Sähköposti:</label>
+                  <br />
                   <input value={newEmail} onChange={handleEmailChange} />
                 </div>
 
                 <div className="contentOne">
-                  <label>Password</label>
+                  <label>Salasana:</label>
+                  <br />
                   <input value={newPassword} onChange={handlePasswordChange} />
                 </div>
               </div>
               <div className="innerContainerTwo">
-                <div className="contentOne">
-                  <label>Check if the user needs Admin rights</label>
-                </div>
                 <div className="contentTwo">
                   <input
                     type="checkbox"
@@ -142,7 +152,9 @@ const UserControl = ({ user }) => {
                   <label>Admin</label>
                 </div>
                 <div className="contentOne">
-                  <button type="submit">Save User</button>
+                  <Button size="sm" variant="primary" type="submit">
+                    Tallenna
+                  </Button>
                 </div>
               </div>
             </form>
@@ -151,9 +163,6 @@ const UserControl = ({ user }) => {
       </Card>
     </div>
   );
-
-  // Displayed User Map Component
-  const userContent = <div eventKey={user._id}>Test 123</div>;
 
   // User List
 
@@ -170,7 +179,7 @@ const UserControl = ({ user }) => {
       </div>
 
       <div className="">
-        <Accordion defaultActiveKey="0">
+        <Accordion defaultActiveKey="0" className="acc">
           <Card>
             {displayedUsers.map(user => (
               <div key={user.id} className="userContainer">
@@ -206,38 +215,19 @@ const UserControl = ({ user }) => {
     </div>
   );
 
-  const ownProfile = (
-    <div className="containerOne">
-      <h4>Your Profile</h4>
-      <Card className="containerTwo signedUser">
-        <Card.Header>{user.name}</Card.Header>
-        <Card.Body>
-          <Card.Title>{user.email}</Card.Title>
-          <Card.Text>some personal information</Card.Text>
-        </Card.Body>
-      </Card>
-    </div>
-  );
-
   return (
     <div className="container">
       <div>
-        <button
-          className="buttonLeft"
-          onClick={() => setShowAddUser(!showAddUser)}
-        >
-          {showAddUser ? 'Add User' : 'Hide Add User'}
-        </button>{' '}
-        <button
-          className="buttonCenter"
-          onClick={() => setShowUserList(!showUserList)}
-        >
-          {showUserList ? 'Show User' : 'Hide User'}
-        </button>{' '}
+        <Button size="sm" variant="primary" onClick={toggleAddUser}>
+          Lisää käyttäjä
+        </Button>{' '}
+        <Button size="sm" variant="primary" onClick={toggleShowUsers}>
+          Muokkaa käyttäjiä
+        </Button>{' '}
       </div>
       <div>
-        {showAddUser ? '' : addUserView}
-        {showUserList ? '' : userList}
+        {navigation.addUser && addUserView}
+        {navigation.showUsers && userList}
       </div>
     </div>
   );
