@@ -136,7 +136,11 @@ const UserControl = ({ user }) => {
                 <div className='contentOne'>
                   <label>Salasana:</label>
 
-                  <input value={newPassword} onChange={handlePasswordChange} />
+                  <input
+                    type='password'
+                    value={newPassword}
+                    onChange={handlePasswordChange}
+                  />
                 </div>
               </div>
               <div className='innerContainerTwo'>
