@@ -9,7 +9,7 @@ const Category = require('../../models/Category');
 // @Route   GET api/category
 // @desc    Get all categories
 // @Access  User
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const categories = await Category.find();
     res.json(categories);
@@ -59,13 +59,19 @@ router.post(
     const { name } = req.body;
 
     try {
+      let category = await Category.findOne({ name });
+      if (category) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Category already exists!' }] });
+      }
       const newCategory = new Category({
         name
       });
 
-      const category = await newCategory.save();
+      await newCategory.save();
       console.log('Category saved!');
-      res.json(category);
+      res.json(newCategory);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');

@@ -11,7 +11,7 @@ const Team = require('../../models/Team');
 router.get('/', async (req, res) => {
   try {
     const teams = await Team.find();
-    res.json(team);
+    res.json(teams);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
