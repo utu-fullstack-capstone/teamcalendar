@@ -113,7 +113,7 @@ const UserControl = ({ user }) => {
   const addUserView = (
     <div>
       <br />
-      <Card className='containerOne'>
+      <Card className='containerOne bg-light'>
         <Card.Header>
           <h4>Lisää uusi käyttäjä</h4>
         </Card.Header>
@@ -153,7 +153,12 @@ const UserControl = ({ user }) => {
                   <label>Admin</label>
                 </div>
                 <div className='contentOne'>
-                  <Button size='sm' variant='primary' type='submit'>
+                  <Button
+                    className='buttonUser'
+                    size='sm'
+                    variant='primary'
+                    type='submit'
+                  >
                     Tallenna
                   </Button>
                 </div>
