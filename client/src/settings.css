@@ -77,11 +77,14 @@
   height: 2rem;
   border-radius: 0.4rem;
 }
-.buttonUser,
+.buttonUser:hover,
 .buttonLeft:hover,
 .buttonRight:hover,
 .buttonCenter:hover {
   box-shadow: 0 0 0.4rem rgb(128, 64, 1);
+}
+.buttonAddUser {
+  margin: 0;
 }
 
 /* Search Field */
@@ -208,6 +211,7 @@
 }
 .contentOne label {
   display: block;
+  margin-top: 1.5rem;
 }
 .contentTwo label {
   margin-left: 1rem;
@@ -222,14 +226,15 @@
   width: 16rem;
   border-radius: 0.4rem;
   border-color: rgb(255, 127, 0);
-  line-height: 1.5rem;
+  line-height: 1.5;
   padding-left: 0.5rem;
   color: dimgray;
 }
 
 .contentOne button {
   line-height: 1.5rem;
-  margin: 0.5rem 0;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
   width: 7rem;
   border-radius: 0.4rem;
   background-color: rgb(255, 127, 0);
@@ -277,4 +282,14 @@
     justify-content: flex-start;
     width: 100%;
   }
+}
+.mLeft-0 button {
+  padding: 0.2rem 0.5rem;
+  margin: 1rem 2rem;
+  background-color: white;
+  border: 0.1rem solid rgb(255, 127, 0);
+  color: rgb(60, 60, 60);
+}
+.headline {
+  margin: 2rem 1rem;
 }

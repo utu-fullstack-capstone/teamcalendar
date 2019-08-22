@@ -57,10 +57,7 @@ const UserProfile = () => {
 
   return (
     <div className='cardContainer'>
-      <Card
-        className='bg-light cardSettings signedUser highlight'
-        border='light'
-      >
+      <Card className='cardSettings signedUser highlight' border='light'>
         <Card.Header>Add New User</Card.Header>
         <Card.Body>
           <Card.Title />

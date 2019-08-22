@@ -124,18 +124,18 @@ const UserControl = ({ user }) => {
               <div className='innerContainerOne'>
                 <div className='contentOne'>
                   <label>Nimi:</label>
-                  <br />
+
                   <input value={newName} onChange={handleNameChange} />
                 </div>
                 <div className='contentOne'>
                   <label>Sähköposti:</label>
-                  <br />
+
                   <input value={newEmail} onChange={handleEmailChange} />
                 </div>
 
                 <div className='contentOne'>
                   <label>Salasana:</label>
-                  <br />
+
                   <input value={newPassword} onChange={handlePasswordChange} />
                 </div>
               </div>
@@ -153,12 +153,7 @@ const UserControl = ({ user }) => {
                   <label>Admin</label>
                 </div>
                 <div className='contentOne'>
-                  <Button
-                    className='buttonUser'
-                    size='sm'
-                    variant='primary'
-                    type='submit'
-                  >
+                  <Button size='sm' variant='primary' type='submit'>
                     Tallenna
                   </Button>
                 </div>

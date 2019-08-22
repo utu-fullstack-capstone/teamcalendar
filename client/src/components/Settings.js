@@ -46,13 +46,13 @@ const Settings = () => {
 
   return (
     <Fragment>
-      <h1 style={{ color: 'white' }} className="mt-5">
+      <h1 style={{ color: 'white' }} className='headline'>
         TPS-Salibandy
       </h1>
       <Row>
-        <Col xs={6}>
-          <Dropdown className="float-right mb-4">
-            <Dropdown.Toggle variant="primary" id="dropdown-basic">
+        <div>
+          <Dropdown className='float-right mb-3 mLeft-0'>
+            <Dropdown.Toggle variant='primary' id='dropdown-basic'>
               Asetukset
             </Dropdown.Toggle>
 
@@ -62,7 +62,7 @@ const Settings = () => {
               <Dropdown.Item onClick={toggleHashtags}>Hashtagit</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </Col>
+        </div>
       </Row>
       <div>
         {navigation.users ? users : ''}
