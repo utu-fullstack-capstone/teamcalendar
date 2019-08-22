@@ -18,3 +18,30 @@
 .maTo {
   margin-top: 1rem;
 }
+.maLeft {
+  margin-left: 3rem;
+}
+.startEnd {
+  display: flex;
+  justify-content: space-between;
+}
+
+.width10 {
+  width: 10rem;
+}
+.flex {
+  display: flex;
+}
+.color:nth-child(2n + 1) {
+  background-color: rgb(225, 225, 225);
+}
+
+.color:nth-child(2n) {
+  background-color: rgb(250, 250, 250);
+}
+.colorToggle:nth-child(2n + 1) {
+  background-color: rgb(240, 240, 240);
+}
+.colorCollapse:nth-child(2n) {
+  background-color: white;
+}

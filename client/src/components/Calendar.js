@@ -20,6 +20,7 @@ function Calendar() {
   }, []);
   return (
     <FullCalendar
+      bg-primary
       events={events}
       defaultView='dayGridMonth'
       plugins={[dayGridPlugin, timeGridPlugin, listPlugin, bootstrapPlugin]}
