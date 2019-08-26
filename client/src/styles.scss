@@ -11,13 +11,25 @@ $headings-font-family: 'Lato', sans-serif;
 
 // Theme colors
 $primary: rgb(255, 127, 0);
-//$secondary: $gray-600 !default;
+$secondary: rgba(255, 255, 255, 0);
 //$success: $green !default;
 //$info: $cyan !default;
 //$warning: $yellow !default;
 //$danger: $red !default;
-//$light: $gray-100 !default;
+$light: rgba(255, 255, 255, 0);
 $dark: #000 !default;
+
+// Card - Calendar
+// .card-body {
+//   background-color: white;
+//   border-radius: 5px;
+// }
+// .card-border-color {
+//   border-color: green;
+// }
+.card-header {
+  background-color: rgba(255, 255, 255, 0);
+}
 
 // Events
 .eventtitle {
@@ -48,8 +60,9 @@ $dark: #000 !default;
 
 // Card columns for feed
 $card-columns-count: 3;
-$card-bg: #fff;
-$card-border-width: 0;
+// $card-bg: none;
+// $card-border-width: 3px;
+$card-border: solid 3px green;
 $card-border-radius: 5px;
 $card-spacer-x: 10px;
 $card-spacer-y: 10px;

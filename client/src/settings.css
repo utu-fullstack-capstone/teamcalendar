@@ -16,7 +16,8 @@
   color: whitesmoke;
 }
 .loginContainer {
-  border: 0.1rem solid rgb(0, 180, 255);
+  /* border: 0.1rem solid rgb(0, 180, 255); */
+  border: 0.1rem solid orange;
   border-radius: 0.5rem;
   width: 100%;
   background-color: rgba(245, 245, 245, 0.2);
@@ -59,11 +60,11 @@
 .buttonCenter,
 .buttonUser {
   position: relative;
-  background-color: rgb(0, 180, 255);
+  background-color: rgb(255, 127, 0);
   color: whitesmoke;
   line-height: 1.5rem;
   width: 7rem;
-  border-color: rgb(0, 180, 255);
+  border-color: rgb(219, 110, 1);
   box-shadow: 0 0 0.3rem rgb(20, 60, 80);
 }
 .buttonLeft {
@@ -76,10 +77,14 @@
   height: 2rem;
   border-radius: 0.4rem;
 }
+.buttonUser:hover,
 .buttonLeft:hover,
 .buttonRight:hover,
 .buttonCenter:hover {
-  box-shadow: 0 0 0.4rem rgb(0, 180, 255);
+  box-shadow: 0 0 0.4rem rgb(128, 64, 1);
+}
+.buttonAddUser {
+  margin: 0;
 }
 
 /* Search Field */
@@ -94,7 +99,8 @@
 
 .searchField,
 .addUser {
-  border: 0.1rem solid rgb(0, 180, 255);
+  /* border: 0.1rem solid rgb(0, 180, 255); */
+  border: 0.1rem solid rgb(255, 127, 0);
   color: whitesmoke;
   border-radius: 0.5rem;
   /* width: 20rem; */
@@ -126,16 +132,19 @@
   width: 14rem;
   margin-left: 1.5rem;
   border-radius: 0.4rem;
-  border-color: rgb(0, 180, 255);
+  border-color: rgb(255, 127, 0);
   line-height: 1.5rem;
   padding-left: 0.5rem;
   color: dimgray;
 }
 
 /* Users */
+.noBackground {
+  background-color: green;
+}
 
 .userContainer {
-  border: 0.1rem solid rgb(0, 180, 255);
+  border: 0.1rem solid whitesmoke;
   background-color: rgba(245, 245, 245, 0.2);
   margin-bottom: 0.5rem;
   border-radius: 0.4rem;
@@ -159,22 +168,24 @@
 }
 
 .userContainerCollaps {
-  width: 100%;
-  margin: 0.5rem 1rem;
+  width: 87%;
+  margin: 0.5rem 2rem;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   grid-gap: 0.1rem;
+  padding: 0;
 }
 .userContainerCollaps :first-child {
   grid-column: 1 / 1;
 }
 
-.card,
+/* .card,
 .card-header {
   background: none;
+  background-color: none;
   border: none;
   padding: 0;
-}
+} */
 
 .containerOne {
   margin: 3rem auto;
@@ -183,7 +194,7 @@
 }
 .containerTwo {
   width: 100%;
-  border: 0.1rem solid rgb(0, 180, 255);
+  border: 0.1rem solid rgb(255, 127, 0);
   border-radius: 0.5rem;
   background-color: rgba(245, 245, 245, 0.2);
 }
@@ -200,6 +211,7 @@
 }
 .contentOne label {
   display: block;
+  margin-top: 1.5rem;
 }
 .contentTwo label {
   margin-left: 1rem;
@@ -207,25 +219,26 @@
 }
 .contentTwo input {
   display: inline;
-  margin-left: 2.5rem;
+  margin-left: 1rem;
 }
 
 .contentOne input {
   width: 16rem;
   border-radius: 0.4rem;
-  border-color: rgb(0, 180, 255);
-  line-height: 1.5rem;
+  border-color: rgb(255, 127, 0);
+  line-height: 1.5;
   padding-left: 0.5rem;
   color: dimgray;
 }
 
 .contentOne button {
   line-height: 1.5rem;
+  margin-bottom: 1rem;
   margin-left: 2rem;
   width: 7rem;
   border-radius: 0.4rem;
-  background-color: rgb(0, 180, 255);
-  border: 0.1rem solid rgb(0, 180, 255);
+  background-color: rgb(255, 127, 0);
+  border: 0.1rem solid rgb(219, 110, 1);
   color: whitesmoke;
 }
 
@@ -269,4 +282,14 @@
     justify-content: flex-start;
     width: 100%;
   }
+}
+.mLeft-0 button {
+  padding: 0.2rem 0.5rem;
+  margin: 1rem 2rem;
+  background-color: white;
+  border: 0.1rem solid rgb(255, 127, 0);
+  color: rgb(60, 60, 60);
+}
+.headline {
+  margin: 2rem 1rem;
 }

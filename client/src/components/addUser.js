@@ -56,8 +56,8 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="cardContainer">
-      <Card className="cardSettings signedUser highlight" border="light">
+    <div className='cardContainer'>
+      <Card className='cardSettings signedUser highlight' border='light'>
         <Card.Header>Add New User</Card.Header>
         <Card.Body>
           <Card.Title />
@@ -78,8 +78,8 @@ const UserProfile = () => {
               <label>Click Admin if the user need Admin status</label>
               <br />
               <input
-                type="checkbox"
-                name="auth"
+                type='checkbox'
+                name='auth'
                 onChange={() => {
                   setStatus(true);
                   console.log(newStatus);
@@ -88,11 +88,11 @@ const UserProfile = () => {
               <label>Admin</label>
               <br />
               <br />
-              <Button className="buttonMargin" variant="primary" type="submit">
+              <Button className='buttonMargin' variant='primary' type='submit'>
                 Save New User
               </Button>
-              <Link to="/settings">
-                <Button className="buttonMargin" variant="primary">
+              <Link to='/settings'>
+                <Button className='buttonMargin' variant='primary'>
                   back to settings
                 </Button>
               </Link>
