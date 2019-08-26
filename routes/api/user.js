@@ -134,7 +134,7 @@ router.post(
 
         // Replace recipient@example.com with a "To" address. If your account
         // is still in the sandbox, this address must be verified.
-        const recipient = 'success@simulator.amazonses.com';
+        const recipient = email;
 
         // Specify a configuration set. If you do not want to use a configuration
         // set, comment the following variable, and the

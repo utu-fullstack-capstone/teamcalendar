@@ -38,7 +38,7 @@ const UserControl = ({ user }) => {
       setUsers(userList.data);
     };
     fetchUsers();
-  }, []);
+  }, [clicked]);
 
   const deleteProfile = id => async () => {
     let deleteClick = await confirm('Are you sure?'); //eslint-disable-line
