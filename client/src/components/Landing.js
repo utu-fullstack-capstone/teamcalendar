@@ -11,11 +11,16 @@ import axios from 'axios';
 
 function Landing({ isLogin }) {
   // Switch between calendar and event cards
-  const [view, setView] = useState('events');
+  const [view, setView] = useState('calendar');
   // Teams for filter dropdown
   const [teamOptions, setTeamOptions] = useState([
     { name: 'Ladataan joukkueita...' }
   ]);
+  const [teamFilter, setTeamFilter] = useState('5d5d7fdcb0323b395243ce3b'); // default Liigamiehet
+
+  const handleTeamFilterChange = selectedTeamId => {
+    setTeamFilter(selectedTeamId);
+  };
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -24,7 +29,7 @@ function Landing({ isLogin }) {
     };
 
     fetchTeams();
-  }, []);
+  }, [teamFilter]);
 
   return (
     <Fragment>
@@ -67,14 +72,24 @@ function Landing({ isLogin }) {
             <Dropdown.Menu>
               {teamOptions &&
                 teamOptions.map(team => (
-                  <Dropdown.Item href='#!'>{team.name}</Dropdown.Item>
+                  <Dropdown.Item
+                    href='#!'
+                    onSelect={() => handleTeamFilterChange(team._id)}
+                  >
+                    {team.name}
+                  </Dropdown.Item>
                 ))}
             </Dropdown.Menu>
           </Dropdown>
         </Col>
       </Row>
       {view === 'events' && <Events />}
-      {view === 'calendar' && (isLogin ? <AdminCalendar /> : <Calendar />)}
+      {view === 'calendar' &&
+        (isLogin ? (
+          <AdminCalendar teamFilter={teamFilter} />
+        ) : (
+          <Calendar teamFilter={teamFilter} />
+        ))}
       <h4 className='mb-4'>
         <i className='fas fa-hashtag mt-2 mr-2' style={{ color: 'white' }} />{' '}
         salibandy

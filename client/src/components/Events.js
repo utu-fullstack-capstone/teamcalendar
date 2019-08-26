@@ -14,8 +14,9 @@ function Events() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      let team_id = '5d2ed5e87d75e870f057c2f0';
-      const events = await axios.get(`/api/event/team_id/${team_id}`);
+      //let team_id = '5d2ed5e87d75e870f057c2f0';
+      //const events = await axios.get(`/api/event/team_id/${team_id}`);
+      const events = await axios.get(`/api/event/`);
       setEvents(events.data);
       setLoading(false);
     };

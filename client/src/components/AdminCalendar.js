@@ -8,7 +8,8 @@ import bootstrapPlugin from '@fullcalendar/bootstrap';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import EditEventModal from './EditEventModal';
 
-function AdminCalendar() {
+function AdminCalendar(props) {
+  const { teamFilter } = props;
   // for updating calendar events
   const [events, setEvents] = useState([]);
   const [newEvent, setNewEvent] = useState({});
@@ -27,13 +28,15 @@ function AdminCalendar() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const events = await axios(`/api/events/`);
+      console.log('teamFilter', teamFilter);
+      const events = await axios(`/api/event/teams/${teamFilter}`);
+      console.log('apikutsu', events);
       setEvents(events.data);
       //console.log(events.data);
     };
 
     fetchEvents();
-  }, []);
+  }, [teamFilter]);
   return (
     <Fragment>
       <FullCalendar
