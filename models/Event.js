@@ -12,11 +12,11 @@ const EventSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  from: {
+  start: {
     type: Date,
     required: true
   },
-  to: {
+  end: {
     type: Date,
     required: true
   },

@@ -1,27 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import axios from 'axios';
-import store from '../store';
+import { connect } from 'react-redux';
 
-const Profile = () => {
-  const [profile, setProfile] = useState({ name: '', email: '', password: '' });
+const Profile = ({ user }) => {
+  console.log('user', user);
+  const [userInfo, setUserInfo] = useState({ name: '' });
+
   useEffect(() => {
-    const user = store.getState().loginReducer.user;
-    const fetchProfile = async () => {
-      if (user._id) {
-        const account = await axios.get(`/api/user/me/${user._id}`);
-        setProfile(account.data);
-      }
+    const fetchUserInfo = async () => {
+      const userProfile = await axios.get(`/api/user/me/${user._id}`);
+      console.log('data', userProfile.data);
+      setUserInfo(userProfile.data);
     };
-    fetchProfile();
-  }, []);
+    fetchUserInfo();
+  }, [user._id]);
 
   return (
     <>
-      <h3>Profiili</h3>
-      Nimi:
+      <div>Nimi: {userInfo.name}</div>
     </>
   );
 };
 
-export default Profile;
+const mapStateToProps = state => {
+  return {
+    user: state.loginReducer.user
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(Profile);

@@ -34,7 +34,7 @@ const UserControl = ({ user }) => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const userList = await axios.get('http://localhost:5000/api/user');
+      const userList = await axios.get('/api/user');
       setUsers(userList.data);
     };
     fetchUsers();
@@ -43,7 +43,7 @@ const UserControl = ({ user }) => {
   const deleteProfile = id => async () => {
     let deleteClick = await confirm('Are you sure?'); //eslint-disable-line
     if (deleteClick) {
-      await axios.delete(`http://localhost:5000/api/user/${id}`);
+      await axios.delete(`/api/user/${id}`);
       setClicked(!clicked);
     }
   };
@@ -59,8 +59,7 @@ const UserControl = ({ user }) => {
       name: newName,
       email: newEmail,
       password: newPassword,
-      admin: newStatus,
-      date: new Date().toISOString()
+      admin: newStatus
     };
     const config = {
       headers: {
@@ -68,7 +67,7 @@ const UserControl = ({ user }) => {
       }
     };
     try {
-      axios.post('http://localhost:5000/api/user', userObject, config);
+      axios.post('/api/user', userObject, config);
       setNewName('');
       setNewEmail('');
       setNewPassword('');
@@ -113,41 +112,41 @@ const UserControl = ({ user }) => {
   const addUserView = (
     <div>
       <br />
-      <Card className='containerOne bg-light'>
+      <Card className="containerOne bg-light">
         <Card.Header>
           <h4>Lisää uusi käyttäjä</h4>
         </Card.Header>
-        <Card.Body className='containerTwo'>
+        <Card.Body className="containerTwo">
           <Card.Title />
           <Card.Text>
-            <form onSubmit={sendForm} className=''>
-              <div className='innerContainerOne'>
-                <div className='contentOne'>
+            <form onSubmit={sendForm} className="">
+              <div className="innerContainerOne">
+                <div className="contentOne">
                   <label>Nimi:</label>
 
                   <input value={newName} onChange={handleNameChange} />
                 </div>
-                <div className='contentOne'>
+                <div className="contentOne">
                   <label>Sähköposti:</label>
 
                   <input value={newEmail} onChange={handleEmailChange} />
                 </div>
 
-                <div className='contentOne'>
+                <div className="contentOne">
                   <label>Salasana:</label>
 
                   <input
-                    type='password'
+                    type="password"
                     value={newPassword}
                     onChange={handlePasswordChange}
                   />
                 </div>
               </div>
-              <div className='innerContainerTwo'>
-                <div className='contentTwo'>
+              <div className="innerContainerTwo">
+                <div className="contentTwo">
                   <input
-                    type='checkbox'
-                    name='auth'
+                    type="checkbox"
+                    name="auth"
                     onChange={() => {
                       setStatus(true);
                       console.log(newStatus);
@@ -156,8 +155,8 @@ const UserControl = ({ user }) => {
 
                   <label>Admin</label>
                 </div>
-                <div className='contentOne'>
-                  <Button size='sm' variant='primary' type='submit'>
+                <div className="contentOne">
+                  <Button size="sm" variant="primary" type="submit">
                     Tallenna
                   </Button>
                 </div>
@@ -173,10 +172,10 @@ const UserControl = ({ user }) => {
 
   const userList = (
     <div>
-      <div className='outerSearchField'>
-        <h4 className='containerTitle'>Search for Users</h4>
-        <div className='searchField'>
-          <form className='innerSearch'>
+      <div className="outerSearchField">
+        <h4 className="containerTitle">Search for Users</h4>
+        <div className="searchField">
+          <form className="innerSearch">
             <label>Lastname</label>
             <input value={input} onChange={filterName} />
           </form>
@@ -184,28 +183,28 @@ const UserControl = ({ user }) => {
       </div>
       <div>
         <h4>User</h4>
-        <Accordion defaultActiveKey='0'>
-          <Card className='bg-light'>
+        <Accordion defaultActiveKey="0">
+          <Card className="bg-light">
             {displayedUsers.map(user => (
-              <div key={user.id} className='userContainer'>
+              <div key={user.id} className="userContainer">
                 <Accordion.Toggle
                   as={Card.Header}
                   eventKey={user._id}
-                  className='userContainerHead'
+                  className="userContainerHead"
                 >
                   <div>
                     <strong>{user.name}</strong>
                   </div>
                   <div>{user.email}</div>
                 </Accordion.Toggle>
-                <Accordion.Collapse eventKey={user._id} className=''>
-                  <Card.Body className='userContainerCollaps'>
+                <Accordion.Collapse eventKey={user._id} className="">
+                  <Card.Body className="userContainerCollaps">
                     <div>{user.name}</div> More informaiton about the user!
                     Telefon, Adress, Liga, Groupe, Status
                     <div />
                     <button
-                      className='buttonUser'
-                      variant='primary'
+                      className="buttonUser"
+                      variant="primary"
                       onClick={deleteProfile(user._id)}
                     >
                       Delete
@@ -221,12 +220,12 @@ const UserControl = ({ user }) => {
   );
 
   return (
-    <div className='container'>
+    <div className="container">
       <div>
-        <Button size='sm' variant='primary' onClick={toggleAddUser}>
+        <Button size="sm" variant="primary" onClick={toggleAddUser}>
           Lisää käyttäjä
         </Button>{' '}
-        <Button size='sm' variant='primary' onClick={toggleShowUsers}>
+        <Button size="sm" variant="primary" onClick={toggleShowUsers}>
           Muokkaa käyttäjiä
         </Button>{' '}
       </div>

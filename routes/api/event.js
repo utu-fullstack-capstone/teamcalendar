@@ -18,7 +18,7 @@ router.post(
     check('location', 'Location is required')
       .not()
       .isEmpty(),
-    check('from', 'Date is required')
+    check('start', 'Date is required')
       .not()
       .isEmpty()
   ],
@@ -32,8 +32,8 @@ router.post(
       title,
       description,
       location,
-      from,
-      to,
+      start,
+      end,
       date,
       category,
       teams
@@ -50,8 +50,8 @@ router.post(
         title,
         description,
         location,
-        from,
-        to,
+        start,
+        end,
         date,
         category,
         teams
@@ -95,10 +95,10 @@ router.get('/', async (req, res) => {
     const events = await Event.find();
 
     const compareEvents = (a, b) => {
-      if (a.from < b.from) {
+      if (a.start < b.start) {
         return -1;
       }
-      if (a.from > b.from) {
+      if (a.start > b.start) {
         return 1;
       }
       return 0;
@@ -170,7 +170,7 @@ router.put(
     check('location', 'Location is required')
       .not()
       .isEmpty(),
-    check('from', 'Date is required')
+    check('start', 'Date is required')
       .not()
       .isEmpty()
   ],
