@@ -11,7 +11,7 @@ function Calendar() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const events = await axios(`/api/events/`);
+      const events = await axios(`/api/event/`);
       setEvents(events.data);
       //console.log(events.data);
     };

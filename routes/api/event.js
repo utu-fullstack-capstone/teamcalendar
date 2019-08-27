@@ -34,23 +34,25 @@ router.post(
       location,
       from,
       to,
+      date,
       category,
       teams
     } = req.body;
 
     try {
-      let event = await Event.findOne({ title });
+      /* let event = await Event.findOne({ id });
       if (event) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'Event already exists!' }] });
-      }
+      } */
       const newEvent = new Event({
         title,
         description,
         location,
         from,
         to,
+        date,
         category,
         teams
       });

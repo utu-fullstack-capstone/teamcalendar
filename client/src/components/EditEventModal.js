@@ -10,9 +10,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 
 export default function EditEventModal(props) {
-  const [isLoading, setLoading] = useState(true);
+  //const [isLoading, setLoading] = useState(true);
   const { newEvent } = props;
-  const { date: initDate, dateStr } = newEvent;
+  const { date: initDate } = newEvent;
   // Event object
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
@@ -25,7 +25,7 @@ export default function EditEventModal(props) {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [teamOptions, setTeamOptions] = useState([]);
   const [locationOptions, setLocationOptions] = useState([]);
-  const [date, setDate] = useState(initDate);
+  const [date, setDate] = useState(null);
 
   const handleFromChange = time => {
     setFrom(time);
@@ -36,34 +36,74 @@ export default function EditEventModal(props) {
   const handleDateChange = eventDate => {
     setDate(eventDate);
   };
+  const handleClose = () => {
+    setDate(null);
+    resetForm();
+    props.onHide();
+  };
+  const resetForm = () => {
+    setTitle();
+    setDescription();
+    setLocation();
+    setFrom();
+    setTo();
+    setCategory();
+    setTeams();
+    setDate(null);
+  };
+  const addEvent = event => {
+    const eventObject = {
+      title: title,
+      description: description,
+      location: location,
+      from: from,
+      to: to,
+      category: category,
+      teams: teams
+    };
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      axios.post('http://localhost:5000/api/event', eventObject, config);
+      console.log(eventObject);
+    } catch (error) {
+      const errorMsg = error.response.data.errors;
+      const errorList = errorMsg.map(element => element.msg);
+      console.log(errorList);
+    }
+  };
+  const sendForm = event => {
+    event.preventDefault();
+    addEvent();
+    handleClose();
+  };
 
-  useEffect(
-    date => {
-      // Get dropdown options from database
-      const fetchCategories = async () => {
-        let categories = await axios.get(`/api/category/`);
-        setCategoryOptions(categories.data);
-      };
-      const fetchTeams = async () => {
-        let teams = await axios.get(`/api/team/`);
-        setTeamOptions(teams.data);
-      };
-      const fetchLocations = async () => {
-        let locations = await axios.get(`/api/location/`);
-        setLocationOptions(locations.data);
-      };
-      const fetchFormOptions = async () => {
-        fetchTeams();
-        fetchLocations();
-        fetchCategories();
-        setLoading(false);
-      };
-      // Populate form dropdown options from database
-      fetchFormOptions();
-      setDate(date);
-    },
-    [date]
-  );
+  useEffect(() => {
+    // Get dropdown options from database
+    const fetchCategories = async () => {
+      let categories = await axios.get(`/api/category/`);
+      setCategoryOptions(categories.data);
+    };
+    const fetchTeams = async () => {
+      let teams = await axios.get(`/api/team/`);
+      setTeamOptions(teams.data);
+    };
+    const fetchLocations = async () => {
+      let locations = await axios.get(`/api/location/`);
+      setLocationOptions(locations.data);
+    };
+    const fetchFormOptions = async () => {
+      fetchTeams();
+      fetchLocations();
+      fetchCategories();
+      //setLoading(false);
+    };
+    // Populate form dropdown options from database
+    fetchFormOptions();
+  }, [date, initDate]);
   return (
     <Modal
       {...props}
@@ -77,7 +117,7 @@ export default function EditEventModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={sendForm}>
           <Form.Group>
             <Form.Label>Joukkue</Form.Label>
             <Form.Control as='select'>
@@ -94,8 +134,12 @@ export default function EditEventModal(props) {
             <Form.Control as='textarea' rows='3' placeholder='Kuvaus' />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Päivämäärä</Form.Label>
-            <DatePicker selected={date} onChange={handleDateChange} />
+            <Form.Label className='mr-3'>Päivämäärä</Form.Label>
+            <DatePicker
+              selected={date === null ? initDate : date}
+              value={date === null ? initDate : date}
+              onChange={handleDateChange}
+            />
           </Form.Group>
           <Row>
             <Col>
@@ -141,12 +185,14 @@ export default function EditEventModal(props) {
                 ))}
             </Form.Control>
           </Form.Group>
-          <Button variant='secondary' onClick={props.onHide}>
-            Sulje
-          </Button>
-          <Button variant='primary' type='submit' onClick={props.onHide}>
-            Tallenna
-          </Button>
+          <Form.Group className='float-right'>
+            <Button variant='secondary' onClick={handleClose} className='mr-2'>
+              Sulje
+            </Button>
+            <Button variant='primary' type='submit'>
+              Tallenna
+            </Button>
+          </Form.Group>
         </Form>
       </Modal.Body>
     </Modal>

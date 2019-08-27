@@ -5,6 +5,9 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  short: {
+    type: String
+  },
   category: {
     type: String,
     required: true
