@@ -91,6 +91,17 @@ router.get('/:id', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
+
+    const compareEvents = (a, b) => {
+      if (a.from < b.from) {
+        return -1;
+      }
+      if (a.from > b.from) {
+        return 1;
+      }
+      return 0;
+    };
+    events.sort(compareEvents);
     res.json(events);
   } catch (err) {
     console.error(err.message);
