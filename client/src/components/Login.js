@@ -32,7 +32,7 @@ const Login = ({ login, loginReducer }) => {
         <br />
         <br />
         <h3 style={{ color: 'white' }}>Kirjaudu</h3>
-        <h5>Kirjautumalla pääset päivittämään kalenteritapahtumia</h5>
+        <h6>Kirjautumalla pääset päivittämään kalenteritapahtumia</h6>
         <Form onSubmit={submitLogin}>
           <Form.Group controlId='formBasicEmail'>
             <Form.Control

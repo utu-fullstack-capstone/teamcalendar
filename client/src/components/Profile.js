@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 import { preventDefault } from '@fullcalendar/core';
 
 const Profile = ({ user }) => {
@@ -69,29 +70,31 @@ const Profile = ({ user }) => {
 
   return (
     <>
-      <div className="profile">
-        <h3>Muokkaa omia tietojasi</h3>
+      <div className='profile'>
+        <h3 style={{ color: 'white' }}>Muokkaa omia tietojasi</h3>
         <Form onSubmit={sendUpdate}>
           <Form.Group>
             <Form.Label>Nimi</Form.Label>
             <Form.Control
-              placeholder="name"
+              placeholder='name'
               value={newName}
               onChange={handleName}
             />
           </Form.Group>
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId='formBasicEmail'>
             <Form.Label>Sähköposti</Form.Label>
             <Form.Control
-              type="email"
-              placeholder="Enter email"
+              type='email'
+              placeholder='Sähköposti'
               value={newEmail}
               onChange={handleEmail}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+          <Col className='btn-col'>
+            <Button variant='primary' type='submit'>
+              Submit
+            </Button>
+          </Col>
         </Form>
       </div>
     </>
