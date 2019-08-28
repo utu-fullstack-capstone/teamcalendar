@@ -8,10 +8,23 @@ import bootstrapPlugin from '@fullcalendar/bootstrap';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import EditEventModal from './EditEventModal';
 
-function Calendar(props) {
+function AdminCalendar(props) {
   const { teamFilter } = props;
   // for updating calendar events
   const [events, setEvents] = useState([]);
+  const [newEvent, setNewEvent] = useState({});
+  // edit calendar event modal
+  const [modalShow, setModalShow] = useState(false);
+
+  const hideModal = event => {
+    //event.preventDefault();
+    setModalShow(false);
+  };
+  const handleDateClick = clickedDate => {
+    console.log(clickedDate);
+    setNewEvent(clickedDate);
+    setModalShow(true);
+  };
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -57,11 +70,13 @@ function Calendar(props) {
         allDaySlot={false}
         allDayDefault={false}
         locale='fi'
+        dateClick={handleDateClick}
         weekNumbers={true}
         eventLimit={true} // allow "more" link when too many events
       />
+      <EditEventModal newEvent={newEvent} show={modalShow} onHide={hideModal} />
     </div>
   );
 }
 
-export default Calendar;
+export default AdminCalendar;

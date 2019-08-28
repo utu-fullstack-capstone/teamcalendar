@@ -55,6 +55,51 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
+// @Route   GET api/user/me/:id
+// @desc    Get own user account by id
+// @Access  User
+router.get('/me/:id', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(400).json({ msg: 'User not found' });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind == 'ObjectId') {
+      return res.status(400).json({ msg: 'User not found' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
+// @Route   PUT api/user
+// @desc    Update user account
+// @Access  Admin
+router.put(
+  '/me/:id',
+  [
+    check('name', 'Name is required')
+      .not()
+      .isEmpty(),
+    check('email', 'Provide a valid email').isEmail(),
+    check('password', 'Password is required')
+      .not()
+      .isEmpty()
+  ],
+  async (req, res) => {
+    try {
+      await User.findByIdAndUpdate(req.params.id, { $set: req.body });
+      res.json({ msg: 'User account updated' });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 // @Route   DELETE api/user/:id
 // @desc    Delete user by id
 // @Access  Admin
@@ -130,11 +175,9 @@ router.post(
 
         // Replace sender@example.com with your "From" address.
         // This address must be verified with Amazon SES.
-        const sender = 'capstonegofore@gmail.com';
+        const sender = 'sender@example.com';
 
-        // Replace recipient@example.com with a "To" address. If your account
-        // is still in the sandbox, this address must be verified.
-        const recipient = 'success@simulator.amazonses.com';
+        const recipient = email;
 
         // Specify a configuration set. If you do not want to use a configuration
         // set, comment the following variable, and the

@@ -18,7 +18,7 @@ router.post(
     check('location', 'Location is required')
       .not()
       .isEmpty(),
-    check('from', 'Date is required')
+    check('start', 'Date is required')
       .not()
       .isEmpty()
   ],
@@ -32,26 +32,36 @@ router.post(
       title,
       description,
       location,
-      from,
-      to,
+      start,
+      end,
+      date,
       category,
+      backgroundColor,
       teams
     } = req.body;
 
     try {
+      /* let event = await Event.findOne({ id });
+      if (event) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Event already exists!' }] });
+      } */
       const newEvent = new Event({
         title,
         description,
         location,
-        from,
-        to,
+        start,
+        end,
+        date,
         category,
+        backgroundColor,
         teams
       });
 
-      const event = await newEvent.save();
+      await newEvent.save();
       console.log('Event saved!');
-      res.json(event);
+      res.json(newEvent);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -85,6 +95,17 @@ router.get('/:id', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
+
+    const compareEvents = (a, b) => {
+      if (a.start < b.start) {
+        return -1;
+      }
+      if (a.start > b.start) {
+        return 1;
+      }
+      return 0;
+    };
+    events.sort(compareEvents);
     res.json(events);
   } catch (err) {
     console.error(err.message);
@@ -151,7 +172,7 @@ router.put(
     check('location', 'Location is required')
       .not()
       .isEmpty(),
-    check('from', 'Date is required')
+    check('start', 'Date is required')
       .not()
       .isEmpty()
   ],

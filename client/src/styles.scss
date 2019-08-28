@@ -11,13 +11,17 @@ $headings-font-family: 'Lato', sans-serif;
 
 // Theme colors
 $primary: rgb(255, 127, 0);
-//$secondary: $gray-600 !default;
+$secondary: rgba(255, 255, 255, 0);
 //$success: $green !default;
 //$info: $cyan !default;
 //$warning: $yellow !default;
 //$danger: $red !default;
-//$light: $gray-100 !default;
+$light: rgba(255, 255, 255, 0);
 $dark: #000 !default;
+
+.card-header {
+  background-color: rgba(255, 255, 255, 0);
+}
 
 // Events
 .eventtitle {
@@ -48,8 +52,9 @@ $dark: #000 !default;
 
 // Card columns for feed
 $card-columns-count: 3;
-$card-bg: #fff;
-$card-border-width: 0;
+// $card-bg: none;
+// $card-border-width: 3px;
+$card-border: solid 3px green;
 $card-border-radius: 5px;
 $card-spacer-x: 10px;
 $card-spacer-y: 10px;
@@ -81,5 +86,51 @@ body {
   justify-content: flex-end;
 }
 
+// Hamburger menu fix
+a .nav-link {
+  padding: 0;
+}
+.dropleft .dropdown-toggle.nav-link::before {
+  display: none;
+}
+
+// Profile component
+.profile {
+  width: 400px;
+  margin: 2rem auto;
+}
+
+.profileContent {
+  margin-top: 2rem;
+}
+
 // Bootstrap and its default variables
 @import 'node_modules/bootstrap/scss/bootstrap';
+
+// Fullcalendar custom style overrides
+.fc-center h2 {
+  font-size: 20px;
+}
+.fc-list-view {
+  color: #282828;
+}
+.fc-list-view.card.card-primary {
+  color: #282828;
+  border-radius: 0px;
+}
+.fc-view-container {
+  background: #fff;
+  color: #282828;
+}
+.table {
+  color: black;
+}
+.alert-info {
+  background-color: #e8e8e8;
+}
+// Calendar
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/list/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+@import '~@fullcalendar/bootstrap/main.css';

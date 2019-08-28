@@ -1,30 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
+const { check, validationResult } = require('express-validator');
 
-// Category Model
-const Category = require('../../models/Category');
+const TeamCategory = require('../../models/TeamCategory');
 
-// @Route   GET api/category
-// @desc    Get all categories
-// @Access  User
+// @Route   GET api/teamcategory
+// @desc    Get all team categories
+// @Access  Public
 router.get('/', async (req, res) => {
   try {
-    const categories = await Category.find();
-    res.json(categories);
+    const teamCategories = await TeamCategory.find();
+    res.json(teamCategories);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
 
-// @Route   GET api/category/:id
-// @desc    Get category by id
+// @Route   GET api/teamcategory/:id
+// @desc    Get team category by id
 // @Access  User
 router.get('/:id', async (req, res) => {
   try {
-    const category = await Category.findById(req.params.id);
+    const category = await TeamCategory.findById(req.params.id);
 
     if (!category) {
       return res.status(404).json({ msg: 'Category not found' });
@@ -39,8 +38,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @Route   POST api/category
-// @desc    Create new category
+// @Route   POST api/teamcategory
+// @desc    Create new team category
 // @Access  User
 router.post(
   '/',
@@ -59,19 +58,13 @@ router.post(
     const { name } = req.body;
 
     try {
-      let category = await Category.findOne({ name });
-      if (category) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Category already exists!' }] });
-      }
-      const newCategory = new Category({
+      const newTeamCategory = new TeamCategory({
         name
       });
 
-      await newCategory.save();
+      const category = await newTeamCategory.save();
       console.log('Category saved!');
-      res.json(newCategory);
+      res.json(category);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -79,12 +72,12 @@ router.post(
   }
 );
 
-// @Route   DELETE api/category/:id
-// @desc    Remove category by id
+// @Route   DELETE api/teamcategory/:id
+// @desc    Remove team category by id
 // @Access  User
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const category = await Category.findByIdAndRemove(req.params.id);
+    const category = await TeamCategory.findByIdAndRemove(req.params.id);
     res.json({ msg: 'Category deleted' });
     console.log('Category deleted');
   } catch (err) {
@@ -92,27 +85,5 @@ router.delete('/:id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-// @Route   PUT api/category
-// @desc    Update category
-// @Access  User
-router.put(
-  '/:id',
-  auth,
-  [
-    check('name', 'Name is required')
-      .not()
-      .isEmpty()
-  ],
-  async (req, res) => {
-    try {
-      await Category.findByIdAndUpdate(req.params.id, { $set: req.body });
-      res.json({ msg: 'Category updated' });
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
-  }
-);
 
 module.exports = router;

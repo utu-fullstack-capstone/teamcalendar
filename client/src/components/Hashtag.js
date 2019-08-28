@@ -12,7 +12,7 @@ const Hashtag = () => {
 
   useEffect(() => {
     const fetchHashtags = async () => {
-      const hashtagList = await axios.get('/api/hashtag');
+      const hashtagList = await axios.get('/api/hashtag/');
       setHashtags(hashtagList.data);
     };
     fetchHashtags();

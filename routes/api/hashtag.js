@@ -9,7 +9,7 @@ const Hashtag = require('../../models/Hashtag');
 // @Route   GET api/hashtag
 // @desc    Get all feed hashtags
 // @Access  User
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const hashtags = await Hashtag.find();
     res.json(hashtags);

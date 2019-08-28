@@ -12,11 +12,11 @@ const EventSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  from: {
+  start: {
     type: Date,
     required: true
   },
-  to: {
+  end: {
     type: Date,
     required: true
   },
@@ -24,6 +24,13 @@ const EventSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'category',
     required: true
+  },
+  backgroundColor: {
+    type: String
+  },
+  allDay: {
+    type: Boolean,
+    default: false
   },
   teams: [
     {

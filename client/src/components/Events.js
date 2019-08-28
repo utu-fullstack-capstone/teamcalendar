@@ -8,20 +8,27 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 
-function Events() {
+function Events(props) {
+  const { teamFilter } = props;
   const [events, setEvents] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
-      let team_id = '5d2ed5e87d75e870f057c2f0';
-      const events = await axios.get(`/api/event/team_id/${team_id}`);
-      setEvents(events.data);
-      setLoading(false);
+      console.log('teamFilter', teamFilter);
+      if (teamFilter === null) {
+        const events = await axios(`/api/event/`);
+        setEvents(events.data);
+        setLoading(false);
+      } else {
+        const events = await axios(`/api/event/teams/${teamFilter}`);
+        setEvents(events.data);
+        setLoading(false);
+      }
     };
 
     fetchEvents();
-  }, []);
+  }, [teamFilter]);
 
   return (
     <Fragment>
@@ -32,7 +39,12 @@ function Events() {
             <Card.Body>
               <Row>
                 <Col xs={1}>
-                  <div className='circle'>B</div>
+                  <div
+                    className='circle'
+                    style={{ background: event.backgroundColor }}
+                  >
+                    {}
+                  </div>
                 </Col>
                 <Col>
                   <Row>
@@ -47,10 +59,10 @@ function Events() {
                         className='far fa-calendar inforowicon'
                         style={{ paddingLeft: 0 }}
                       />
-                      Tänään
-                      {/* {moment(event.created_at).fromNow()} */}
+                      {moment(event.start).format('LL')}
                       <i className='far fa-clock inforowicon' />
-                      9:30 - 11:30
+                      {moment(event.start).format('HH:mm')} -{' '}
+                      {moment(event.end).format('HH:mm')}
                       <i class='fas fa-map-marker-alt inforowicon' />
                       {event.location}
                     </Col>

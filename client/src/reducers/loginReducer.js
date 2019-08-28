@@ -13,7 +13,7 @@ const initialState = {
   isLogin: false,
   isAdmin: false,
   isLoading: true,
-  user: null
+  user: { name: '', email: '', _id: '' }
 };
 
 const loginReducer = (state = initialState, action) => {

@@ -4,7 +4,6 @@ const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
 const Team = require('../../models/Team');
-const User = require('../../models/User');
 
 // @Route   GET api/teams
 // @desc    Get all teams
@@ -12,7 +11,7 @@ const User = require('../../models/User');
 router.get('/', async (req, res) => {
   try {
     const teams = await Team.find();
-    res.json(team);
+    res.json(teams);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -39,6 +38,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// @ Route  GET api/teams/:category
+// @ Desc   Get teams by category
+// @ access Public
+router.get('/:category', async (req, res) => {
+  try {
+    const teams = await Team.find({ category: req.params.category });
+    res.json(team);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 // @ Route  POST api/teams
 // @ Desc   Create teams
 // @ access Admin
@@ -49,19 +60,22 @@ router.post(
     check('name', 'Name is required')
       .not()
       .isEmpty(),
+    check('category', 'Category is required')
+      .not()
+      .isEmpty(),
     check('city', 'City is required')
       .not()
+      .isEmpty(),
+    check('color', 'Color is required')
+      .not()
       .isEmpty()
-    // check('coach', 'Coach is required')
-    //   .not()
-    //   .isEmpty()
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { name, city, color, contact, coach } = req.body;
+    const { name, category, city, color, contact, coach } = req.body;
 
     try {
       // check admin rights
@@ -77,6 +91,7 @@ router.post(
 
         team = new Team({
           name,
+          category,
           city,
           color,
           contact,

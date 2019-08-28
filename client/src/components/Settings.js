@@ -3,6 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Hashtag from './Hashtag.js';
+import UserControl from './UserControl';
 import store from '../store';
 
 const Settings = () => {
@@ -12,7 +13,11 @@ const Settings = () => {
     hashtags: false
   });
 
-  const users = <div>Käyttäjät</div>;
+  const users = (
+    <div>
+      <UserControl />
+    </div>
+  );
   const teams = <div>Joukkueet</div>;
   const hashtags = (
     <div>
@@ -41,13 +46,13 @@ const Settings = () => {
 
   return (
     <Fragment>
-      <h1 style={{ color: 'white' }} className="mt-5">
+      <h1 style={{ color: 'white' }} className='headline'>
         TPS-Salibandy
       </h1>
       <Row>
-        <Col xs={6}>
-          <Dropdown className="float-right mb-4">
-            <Dropdown.Toggle variant="primary" id="dropdown-basic">
+        <div>
+          <Dropdown className='float-right mb-3 mLeft-0'>
+            <Dropdown.Toggle variant='primary' id='dropdown-basic'>
               Asetukset
             </Dropdown.Toggle>
 
@@ -57,7 +62,7 @@ const Settings = () => {
               <Dropdown.Item onClick={toggleHashtags}>Hashtagit</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-        </Col>
+        </div>
       </Row>
       <div>
         {navigation.users ? users : ''}
