@@ -70,28 +70,28 @@ const Profile = ({ user }) => {
 
   return (
     <>
-      <div className='profile'>
+      <div>
         <h3 style={{ color: 'white' }}>Muokkaa omia tietojasi</h3>
         <Form onSubmit={sendUpdate}>
           <Form.Group>
             <Form.Label>Nimi</Form.Label>
             <Form.Control
-              placeholder='name'
+              placeholder="name"
               value={newName}
               onChange={handleName}
             />
           </Form.Group>
-          <Form.Group controlId='formBasicEmail'>
+          <Form.Group controlId="formBasicEmail">
             <Form.Label>Sähköposti</Form.Label>
             <Form.Control
-              type='email'
-              placeholder='Sähköposti'
+              type="email"
+              placeholder="Sähköposti"
               value={newEmail}
               onChange={handleEmail}
             />
           </Form.Group>
-          <Col className='btn-col'>
-            <Button variant='primary' type='submit'>
+          <Col className="btn-col">
+            <Button variant="primary" type="submit">
               Submit
             </Button>
           </Col>

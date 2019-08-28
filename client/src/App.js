@@ -11,7 +11,7 @@ import Calendar from './components/Calendar';
 import Login from './components/Login';
 import Landing from './components/Landing';
 import Settings from './components/Settings';
-import Profile from './components/Profile';
+import Account from './components/Account';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -44,13 +44,13 @@ function PrivateRouteSettings({ component: Settings, ...rest }) {
   );
 }
 
-function PrivateRouteProfile({ component: Profile, ...rest }) {
+function PrivateRouteProfile({ component: Account, ...rest }) {
   return (
     <Route
       {...rest}
       render={props =>
         localStorage.token ? (
-          <Profile {...props} />
+          <Account {...props} />
         ) : (
           <Redirect
             to={{
@@ -85,8 +85,8 @@ const App = () => {
                 />
                 <PrivateRouteProfile
                   exact
-                  path="/profile"
-                  component={Profile}
+                  path="/account"
+                  component={Account}
                 />
                 <Route exact path="/login" component={Login} />
               </Switch>
