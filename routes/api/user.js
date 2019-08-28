@@ -75,6 +75,31 @@ router.get('/me/:id', auth, async (req, res) => {
   }
 });
 
+// @Route   PUT api/user
+// @desc    Update user account
+// @Access  Admin
+router.put(
+  '/me/:id',
+  [
+    check('name', 'Name is required')
+      .not()
+      .isEmpty(),
+    check('email', 'Provide a valid email').isEmail(),
+    check('password', 'Password is required')
+      .not()
+      .isEmpty()
+  ],
+  async (req, res) => {
+    try {
+      await User.findByIdAndUpdate(req.params.id, { $set: req.body });
+      res.json({ msg: 'User account updated' });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 // @Route   DELETE api/user/:id
 // @desc    Delete user by id
 // @Access  Admin
