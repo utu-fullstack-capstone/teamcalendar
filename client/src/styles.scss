@@ -19,14 +19,6 @@ $secondary: rgba(255, 255, 255, 0);
 $light: rgba(255, 255, 255, 0);
 $dark: #000 !default;
 
-// Card - Calendar
-// .card-body {
-//   background-color: white;
-//   border-radius: 5px;
-// }
-// .card-border-color {
-//   border-color: green;
-// }
 .card-header {
   background-color: rgba(255, 255, 255, 0);
 }
@@ -94,17 +86,40 @@ body {
   justify-content: flex-end;
 }
 
-// Hamburger menu
-.hamburger .dropdown-toggle::before {
+// Hamburger menu fix
+a .nav-link {
+  padding: 0;
+}
+.dropleft .dropdown-toggle.nav-link::before {
   display: none;
 }
-.dropdown-toggle .nav-link::before {
-  display: none;
-}
-
 // Bootstrap and its default variables
 @import 'node_modules/bootstrap/scss/bootstrap';
 
+// Fullcalendar custom style overrides
+.fc-center h2 {
+  font-size: 20px;
+}
+.fc-list-view {
+  color: #282828;
+}
+.fc-list-view.card.card-primary {
+  color: #282828;
+  border-radius: 0px;
+}
+.fc-view-container {
+  background: #fff;
+  color: #282828;
+}
+.table {
+  color: black;
+}
+.alert-info {
+  background-color: #e8e8e8;
+}
 // Calendar
 @import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/list/main.css';
 @import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+@import '~@fullcalendar/bootstrap/main.css';

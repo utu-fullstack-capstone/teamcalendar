@@ -25,6 +25,13 @@ const EventSchema = new mongoose.Schema({
     ref: 'category',
     required: true
   },
+  backgroundColor: {
+    type: String
+  },
+  allDay: {
+    type: Boolean,
+    default: false
+  },
   teams: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -21,7 +21,7 @@ function AdminCalendar(props) {
     setModalShow(false);
   };
   const handleDateClick = clickedDate => {
-    //console.log(clickedDate);
+    console.log(clickedDate);
     setNewEvent(clickedDate);
     setModalShow(true);
   };
@@ -29,17 +29,21 @@ function AdminCalendar(props) {
   useEffect(() => {
     const fetchEvents = async () => {
       console.log('teamFilter', teamFilter);
-      const events = await axios(`/api/event/teams/${teamFilter}`);
-      console.log('apikutsu', events);
-      setEvents(events.data);
-      //console.log(events.data);
+      if (teamFilter === null) {
+        const events = await axios(`/api/event/`);
+        setEvents(events.data);
+      } else {
+        const events = await axios(`/api/event/teams/${teamFilter}`);
+        setEvents(events.data);
+      }
     };
 
     fetchEvents();
   }, [teamFilter]);
   return (
-    <Fragment>
+    <div class='mb-4'>
       <FullCalendar
+        //editable={true}
         events={events}
         defaultView='dayGridMonth'
         plugins={[
@@ -49,8 +53,8 @@ function AdminCalendar(props) {
           bootstrapPlugin,
           interactionPlugin
         ]}
-        themeSystem='bootstrap4'
-        height='auto'
+        themeSystem='bootstrap'
+        contentHeight={500}
         buttonText={{
           today: 'Tänään',
           month: 'Kuukausi',
@@ -61,14 +65,17 @@ function AdminCalendar(props) {
         header={{
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+          right: 'dayGridMonth,timeGridWeek,listWeek'
         }}
         allDaySlot={false}
+        allDayDefault={false}
         locale='fi'
         dateClick={handleDateClick}
+        weekNumbers={true}
+        eventLimit={true} // allow "more" link when too many events
       />
       <EditEventModal newEvent={newEvent} show={modalShow} onHide={hideModal} />
-    </Fragment>
+    </div>
   );
 }
 

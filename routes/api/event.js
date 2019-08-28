@@ -36,6 +36,7 @@ router.post(
       end,
       date,
       category,
+      backgroundColor,
       teams
     } = req.body;
 
@@ -54,6 +55,7 @@ router.post(
         end,
         date,
         category,
+        backgroundColor,
         teams
       });
 

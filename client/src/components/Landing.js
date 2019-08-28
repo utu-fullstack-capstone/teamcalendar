@@ -11,12 +11,12 @@ import axios from 'axios';
 
 function Landing({ isLogin }) {
   // Switch between calendar and event cards
-  const [view, setView] = useState('calendar');
+  const [view, setView] = useState('events');
   // Teams for filter dropdown
   const [teamOptions, setTeamOptions] = useState([
     { name: 'Ladataan joukkueita...' }
   ]);
-  const [teamFilter, setTeamFilter] = useState('5d5d7fdcb0323b395243ce3b'); // default Liigamiehet
+  const [teamFilter, setTeamFilter] = useState(null); // default null eli Kaikki tiimit
 
   const handleTeamFilterChange = selectedTeamId => {
     setTeamFilter(selectedTeamId);
@@ -29,7 +29,7 @@ function Landing({ isLogin }) {
     };
 
     fetchTeams();
-  }, [teamFilter]);
+  }, []);
 
   return (
     <Fragment>
@@ -70,6 +70,12 @@ function Landing({ isLogin }) {
               Joukkue
             </Dropdown.Toggle>
             <Dropdown.Menu>
+              <Dropdown.Item
+                href='#!'
+                onSelect={() => handleTeamFilterChange(null)}
+              >
+                Kaikki
+              </Dropdown.Item>
               {teamOptions &&
                 teamOptions.map(team => (
                   <Dropdown.Item
@@ -83,7 +89,7 @@ function Landing({ isLogin }) {
           </Dropdown>
         </Col>
       </Row>
-      {view === 'events' && <Events />}
+      {view === 'events' && <Events teamFilter={teamFilter} />}
       {view === 'calendar' &&
         (isLogin ? (
           <AdminCalendar teamFilter={teamFilter} />
