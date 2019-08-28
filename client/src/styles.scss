@@ -93,6 +93,17 @@ a .nav-link {
 .dropleft .dropdown-toggle.nav-link::before {
   display: none;
 }
+
+// Profile component
+.profile {
+  width: 400px;
+  margin: 2rem auto;
+}
+
+.profileContent {
+  margin-top: 2rem;
+}
+
 // Bootstrap and its default variables
 @import 'node_modules/bootstrap/scss/bootstrap';
 

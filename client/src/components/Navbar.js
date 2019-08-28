@@ -39,7 +39,7 @@ const NavBar = ({ loginReducer }) => {
       <Link to="/settings">
         <NavDropdown.Item href="#action/3.2"> Asetukset</NavDropdown.Item>
       </Link>
-      <Link to="/profile">
+      <Link to="/account">
         <NavDropdown.Item href="#action/3.3"> Profiili</NavDropdown.Item>
       </Link>
       <NavDropdown.Divider />
